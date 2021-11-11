@@ -1,6 +1,6 @@
 from django.contrib import admin
 from Main.models import *
 
-admin.site.register(Meme)
-admin.site.register(UserG3)
+admin.site.register(Post)
+admin.site.register(CustomUser)
 # Register your models here.
