@@ -4,14 +4,31 @@ from django.contrib.auth.models import User
 from Main.models import *
 
 
-class MemeSerializer(serializers.ModelSerializer):
+class PostSerializerGet(serializers.ModelSerializer):
     class Meta:
-        model = Meme
+        model = Post
         fields = (
             "id",
+            "user",
+            "date",
             "image",
             "title",
-            "description"
+            "description",
+            "no_likes"
+        )
+
+
+class PostSerializerUpload(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = (
+            "id",
+            "user",
+            "date",
+            "image",
+            "title",
+            "description",
+            "no_likes"
         )
 
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { LoginRestService } from './login-rest.service';
+import { LoginRestService } from '../../services/login-rest.service';
 // import {MessageService} from "primeng/api";
 
 @Component({

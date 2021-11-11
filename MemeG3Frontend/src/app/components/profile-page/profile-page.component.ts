@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile-page.component.css']
 })
 export class ProfilePageComponent implements OnInit {
-
+  list: number[] = [1, 2, 3, 4];
   constructor() { }
 
   ngOnInit(): void {
