@@ -19,13 +19,19 @@
 
 html {
     background-color: #56baed;
+    height: 100%;
 }
 
 body {
+    height: 100%;
     font-family: "Poppins", sans-serif;
+    margin: 0px !important;
     height: 100vh;
-    /* background-image: url("../../assets/login_background.jpg"); */
-    background-image: url("https://i.imgur.com/81RTZEw.png");
+    background-image: url("/assets/login_background.jpg");
+    /* background-image: url("https://i.imgur.com/81RTZEw.png"); */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 a {
