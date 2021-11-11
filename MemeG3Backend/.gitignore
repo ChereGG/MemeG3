@@ -7,6 +7,7 @@
 # Only exists if Bazel was run
 /bazel-out
 
+Pipfile
 # dependencies
 /node_modules
 
