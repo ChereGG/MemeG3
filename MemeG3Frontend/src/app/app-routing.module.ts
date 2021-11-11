@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {RouterModule, Routes} from '@angular/router';
-import {ProfilePageComponent} from './components/profile-page/profile-page.component';
-import {AppComponent} from './app.component';
+import { LoginComponent } from './login/login.component';
+import { RouterModule, Routes } from '@angular/router';
+import { ProfilePageComponent } from './components/profile-page/profile-page.component';
+import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { path: 'profile', component: ProfilePageComponent },
-  {path: '', component: AppComponent}
+  { path: 'login', component: LoginComponent },
+  { path: '', component: AppComponent }
 ];
 
 @NgModule({
