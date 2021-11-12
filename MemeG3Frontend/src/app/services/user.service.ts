@@ -1,23 +1,23 @@
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-
+import {Observable} from 'rxjs';
 const baseUrl = 'http://localhost:8080/api';
+
 @Injectable({
   providedIn: 'root'
 })
-export class PostService {
+export class UserService {
 
   constructor(private http: HttpClient) { }
-  headers = new HttpHeaders({
+    headers = new HttpHeaders({
     'Content-Type': 'application/json'
   });
 
-  getAllFeedPosts(): Observable<any>{
+    getUserById(id: string): Observable<any>{
     // const token = this.userService.getToken();
     // if (token){
       // this.headers = this.headers.set('Authorization', `Token ${token}`);
     // }
-    return this.http.get(baseUrl + '/posts');
+    return this.http.get(baseUrl + '/users/' + id);
   }
 }

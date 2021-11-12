@@ -4,11 +4,13 @@ import { LoginComponent } from './components/login/login.component';
 import { RouterModule, Routes } from '@angular/router';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 import { AppComponent } from './app.component';
+import {FeedComponent} from './components/feed/feed.component';
 
 const routes: Routes = [
   { path: 'profile', component: ProfilePageComponent },
   { path: 'login', component: LoginComponent },
-  { path: '', component: AppComponent }
+  { path: '', component: AppComponent },
+  {path: 'feed', component: FeedComponent}
 ];
 
 @NgModule({

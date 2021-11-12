@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Post} from '../../models/Post.model';
 
 @Component({
   selector: 'app-post',
@@ -7,9 +8,12 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 
 export class PostComponent implements OnInit {
-  @Input() id?: number = null;
+  @Input() post?: Post = null;
   constructor() { }
   ngOnInit(): void {
   }
 
+    getImagePath(path: string): string{
+    return 'http://localhost:8080' + path;
+  }
 }

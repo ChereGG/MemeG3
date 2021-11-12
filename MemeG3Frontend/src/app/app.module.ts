@@ -9,13 +9,18 @@ import { HttpClientModule} from '@angular/common/http';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 import {RouterModule} from '@angular/router';
 import { PostComponent } from './components/post/post.component';
+import { FeedComponent } from './components/feed/feed.component';
+import { MemeDialogComponent } from './components/meme-dialog/meme-dialog.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     ProfilePageComponent,
-    PostComponent
+    PostComponent,
+    FeedComponent,
+    MemeDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -5,5 +5,5 @@ export class User {
   last_name ?: string;
   email?: string;
   descriere?: string;
-  image ?: stiring;
+  image ?: string;
 }

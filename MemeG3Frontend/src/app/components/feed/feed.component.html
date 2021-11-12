@@ -1,0 +1,10 @@
+<div class="feed-page-container">
+  <div class="feed-posts-container" *ngFor="let post of this.list index as i">
+    <div class="post-container">
+      <app-post [post]="post">
+      </app-post>
+    </div>
+  </div>
+</div>
+
+
