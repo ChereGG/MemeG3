@@ -25,17 +25,18 @@ class PostSerializerGet(serializers.ModelSerializer):
         )
 
 
-class PostSerializerUpload(forms.ModelForm):
+class PostSerializerUpload(serializers.ModelSerializer):
+
     class Meta:
         model = Post
         fields = (
             "id",
-            "user",
             "date",
             "image",
             "title",
             "description",
-            "no_likes"
+            "no_likes",
+            "user"
         )
 
 
@@ -51,3 +52,4 @@ class UserSerializer(serializers.ModelSerializer):
                   'last_name',
                   'descriere',
                   'image')
+

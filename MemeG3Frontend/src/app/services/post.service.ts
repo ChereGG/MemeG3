@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {PostUpload} from '../models/PostUpload.model';
 
 const baseUrl = 'http://localhost:8080/api';
 @Injectable({
@@ -20,4 +21,19 @@ export class PostService {
     // }
     return this.http.get(baseUrl + '/posts');
   }
+
+  addPost(post: PostUpload, image: File): Observable<any>{
+    const formData = new FormData();
+    formData.append('image', image, image.name);
+    formData.append('description', post.description);
+    formData.append('title', post.title);
+    formData.append('date', new Date().toISOString().slice(0, 10));
+    formData.append('no_likes', '0');
+
+    console.log(baseUrl);
+    return this.http.post(baseUrl + '/post', formData);
+
+  }
+
+
 }

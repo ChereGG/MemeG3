@@ -11,6 +11,7 @@ import {RouterModule} from '@angular/router';
 import { PostComponent } from './components/post/post.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { MemeDialogComponent } from './components/meme-dialog/meme-dialog.component';
+import { AddPostComponent } from './components/add-post/add-post.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { MemeDialogComponent } from './components/meme-dialog/meme-dialog.compon
     ProfilePageComponent,
     PostComponent,
     FeedComponent,
-    MemeDialogComponent
+    MemeDialogComponent,
+    AddPostComponent
   ],
   imports: [
     BrowserModule,

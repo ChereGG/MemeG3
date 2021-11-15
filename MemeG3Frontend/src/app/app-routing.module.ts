@@ -5,12 +5,15 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProfilePageComponent } from './components/profile-page/profile-page.component';
 import { AppComponent } from './app.component';
 import {FeedComponent} from './components/feed/feed.component';
+import {AddPostComponent} from './components/add-post/add-post.component';
 
 const routes: Routes = [
   { path: 'profile', component: ProfilePageComponent },
   { path: 'login', component: LoginComponent },
   { path: '', component: AppComponent },
-  {path: 'feed', component: FeedComponent}
+  {path: 'feed', component: FeedComponent},
+  {path: 'addPost', component: AddPostComponent},
+
 ];
 
 @NgModule({

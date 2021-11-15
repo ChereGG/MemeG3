@@ -5,8 +5,9 @@ from Main import views
 from MemeG3 import settings
 
 urlpatterns = [
-    path('api/posts',views.feed_posts),
-    path('api/users/<str:userID>',views.get_user_by_id)
+    path('api/posts', views.feed_posts),
+    path('api/post', views.add_post),
+    path('api/users/<str:userID>', views.get_user_by_id)
 ]
 
 if settings.DEBUG:

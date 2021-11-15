@@ -1,0 +1,16 @@
+<br>
+<form enctype="multipart/form-data" [formGroup]="postForm">
+  <br>
+  <input id="title" type="text" placeholder="title" formControlName="title" >
+  <br>
+  <br>
+  <input id="description" type="text" placeholder="description(optional)" formControlName="description">
+  <br>
+  <br>
+  <input id="upload"  type="file" accept="image/*" (change)="onFileChanged($event)">
+</form>
+
+<br>
+<button (click)="saveP()"  id="save">Save Post</button>
+<!-- <button (click)="saveA()" >get all</button> -->
+
