@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {Post} from '../../models/Post.model';
+import {PostService} from '../../services/post.service';
+import {User} from '../../models/User.model';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-profile-page',
@@ -6,10 +10,26 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile-page.component.css']
 })
 export class ProfilePageComponent implements OnInit {
-  list: number[] = [1, 2, 3, 4];
-  constructor() { }
+  posts: Post[];
+  user: User;
+  constructor(postService: PostService, userService: UserService) {
+      postService.getAllProfilePosts().subscribe(data => {
+      this.posts = data;
+      console.log(this.posts);
+    });
+      userService.getUserById('1').subscribe(data => {
+        this.user = data;
+      });
+
+  }
 
   ngOnInit(): void {
+
+  }
+
+
+    getImagePath(path: string): string{
+    return 'http://localhost:8080' + path;
   }
 
 }
