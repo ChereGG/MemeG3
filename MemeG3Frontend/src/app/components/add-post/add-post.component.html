@@ -1,16 +1,17 @@
-<br>
-<form enctype="multipart/form-data" [formGroup]="postForm">
+<div class="center-screen">
+  <div>
   <br>
-  <input id="title" type="text" placeholder="title" formControlName="title" >
-  <br>
-  <br>
-  <input id="description" type="text" placeholder="description(optional)" formControlName="description">
-  <br>
-  <br>
-  <input id="upload"  type="file" accept="image/*" (change)="onFileChanged($event)">
-</form>
+  <form enctype="multipart/form-data" [formGroup]="postForm">
 
-<br>
-<button (click)="saveP()"  id="save">Save Post</button>
+    <br>
+    <input id="title" type="text" placeholder="title" formControlName="title" >
+    <input id="description" type="text" placeholder="description" formControlName="description">
+
+    <input id="upload"  type="file" accept="image/*" (change)="onFileChanged($event)">
+
+  </form>
+  <button (click)="saveP()"  id="save">Save Post</button>
+  </div>
+</div>
 <!-- <button (click)="saveA()" >get all</button> -->
 
