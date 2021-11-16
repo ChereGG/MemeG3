@@ -10,18 +10,19 @@ from Main.serializers import *
 
 
 @api_view(['GET'])
-#@authentication_classes([TokenAuthentication, ])
-#@permission_classes([IsAuthenticated, ])
+# @authentication_classes([TokenAuthentication, ])
+# @permission_classes([IsAuthenticated, ])
 def feed_posts(request):
     if request.method == 'GET':
         posts = Post.objects.all()
-        post_serializer = PostSerializerGet(posts,many=True)
-        return JsonResponse(post_serializer.data,safe=False)
+        post_serializer = PostSerializerGet(posts, many=True)
+        return JsonResponse(post_serializer.data, safe=False)
+
 
 @api_view(['GET'])
-#@authentication_classes([TokenAuthentication, ])
-#@permission_classes([IsAuthenticated, ])
-def get_user_by_id(request,userID):
+# @authentication_classes([TokenAuthentication, ])
+# @permission_classes([IsAuthenticated, ])
+def get_user_by_id(request, userID):
     try:
         user = CustomUser.objects.get(pk=userID)
     except CustomUser.DoesNotExist:
@@ -45,3 +46,13 @@ def add_post(request):
         return JsonResponse({'message': postSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['GET'])
+def profile_posts(request):
+    if request.method == 'GET':
+        data = request.data
+        data['user'] = 1
+        posts = Post.objects.all().filter(user_id__exact=data['user'])
+        print("\n")
+        print(posts)
+        post_serializer = PostSerializerGet(posts, many=True)
+        return JsonResponse(post_serializer.data, safe=False)
