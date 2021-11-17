@@ -53,3 +53,13 @@ class UserSerializer(serializers.ModelSerializer):
                   'descriere',
                   'image')
 
+
+class UserSerializerAdd(serializers.ModelSerializer):
+    #username = serializers.CharField(source='user.username')
+    #password = serializers.CharField(source='user.password')
+    class Meta:
+        model = User
+        fields = ('username',
+                  'password')
+    def create(self, validated_data):
+        return User.objects.create(**validated_data)

@@ -26,12 +26,23 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    this.loginRestService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
+    this.loginRestService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).toPromise().then((response: any) => {
+      // alert("orice")
+      alert(response.access)
+      localStorage.setItem('token', response.access);
+    }).catch(response => {
+      alert('Login error')
+    })
     // this.messageService.add({ severity: 'error', summary: 'Login error', detail: "Is the server on?" });
   }
 
   register() {
-    this.loginRestService.register(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
+    this.loginRestService.register(this.loginForm.controls.username.value, this.loginForm.controls.password.value).toPromise().then((response: any) => {
+      if (response.message == 'ok')
+        alert("Register successful")
+      else
+        alert("error")
+    })
   }
 
 
