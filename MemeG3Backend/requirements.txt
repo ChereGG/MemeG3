@@ -10,10 +10,12 @@ Django==3.2
 django-allauth==0.44.0
 django-cors-headers==3.7.0
 django-debug-toolbar==3.2.1
+django-filter==21.1
 django-model-utils==4.1.1
 django-rest-auth==0.9.5
 djangorestframework==3.12.2
 djangorestframework-dataclasses==0.10
+djangorestframework-simplejwt==5.0.0
 drf-writable-nested==0.6.3
 idna==2.10
 itypes==1.2.0
