@@ -18,8 +18,8 @@ from Main.serializers import *
 #@permission_classes([IsAuthenticated, ])
 def feed_posts(request):
     if request.method == 'GET':
-        if not request.user.is_authenticated :
-            return JsonResponse({'message': 'The user does not exist'}, status=status.HTTP_404_NOT_FOUND)
+       # if not request.user.is_authenticated :
+        #    return JsonResponse({'message': 'The user does not exist'}, status=status.HTTP_404_NOT_FOUND)
         posts = Post.objects.all()
         post_serializer = PostSerializerGet(posts, many=True)
         return JsonResponse(post_serializer.data, safe=False)

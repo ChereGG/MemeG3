@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { LoginRestService } from '../../services/login-rest.service';
+import {Router} from '@angular/router';
 // import {MessageService} from "primeng/api";
 
 @Component({
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
 
   constructor(private fb: FormBuilder,
-    private loginRestService: LoginRestService,
+              private loginRestService: LoginRestService,
+              private router: Router,
     // ,private messageService: MessageService,
   ) { }
 
@@ -28,21 +30,24 @@ export class LoginComponent implements OnInit {
   login() {
     this.loginRestService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).toPromise().then((response: any) => {
       // alert("orice")
-      alert(response.access)
+      // alert(response.access)
       localStorage.setItem('token', response.access);
+      this.router.navigate(['profile']);
     }).catch(response => {
-      alert('Login error')
-    })
+      alert('Login error');
+    });
     // this.messageService.add({ severity: 'error', summary: 'Login error', detail: "Is the server on?" });
   }
 
   register() {
     this.loginRestService.register(this.loginForm.controls.username.value, this.loginForm.controls.password.value).toPromise().then((response: any) => {
-      if (response.message == 'ok')
-        alert("Register successful")
-      else
-        alert("error")
-    })
+      if (response.message == 'ok') {
+        alert('Register successful');
+      }
+      else {
+        alert('error');
+      }
+    });
   }
 
 

@@ -18,7 +18,7 @@ export class LoginRestService {
     //     'Access-Control-Allow-Origin': '*',
     //   }
     // };
-    return this.http.post('http://127.0.0.1:8000/token', formData)
+    return this.http.post('http://127.0.0.1:8080/token', formData)
     // alert('login. username: ' + username + ' password: ' + password);
   }
 
@@ -33,7 +33,7 @@ export class LoginRestService {
       username: username,
       password: password
     });
-    return this.http.post("http://127.0.0.1:8000/api/users", body, options);
+    return this.http.post("http://127.0.0.1:8080/api/users", body, options);
     // alert('register. username: ' + username + ' password: ' + password);
   }
 }
