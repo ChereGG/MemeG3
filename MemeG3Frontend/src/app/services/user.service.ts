@@ -20,4 +20,10 @@ export class UserService {
     // }
     return this.http.get(baseUrl + '/users/' + id);
   }
+  changeImage(data: any): Observable<any> {
+      return this.http.put(baseUrl + '/change-picture', data);
+  }
+  changeDescription(data: any): Observable<any> {
+      return this.http.put(baseUrl + '/change-description', data);
+  }
 }

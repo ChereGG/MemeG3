@@ -1,0 +1,10 @@
+<div>
+  <h1 mat-dialog-title>Upload a new image</h1>
+  <div mat-dialog-content>
+    <input [(ngModel)]="descriere">
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="this.descriere">Change Description</button>
+    <button mat-button (click)="close()">Close</button>
+  </div>
+</div>

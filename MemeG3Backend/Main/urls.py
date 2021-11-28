@@ -13,6 +13,8 @@ urlpatterns = [
     path('api/users', views.add_user),
     path('api/profile-posts', views.profile_posts),
     path('token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/change-picture', views.change_picture),
+    path('api/change-description', views.change_description)
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,10 @@
+<div>
+  <h1 mat-dialog-title>Upload a new image</h1>
+  <div mat-dialog-content>
+    <input id="image-upload" type="file" accept=".png, .jpg, .jpeg" (change)="handleFileInput($event)">
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="this.fileToUpload">Change image</button>
+    <button mat-button (click)="close()">Close</button>
+  </div>
+</div>

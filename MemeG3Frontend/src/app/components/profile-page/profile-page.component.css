@@ -37,13 +37,14 @@
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+  background-color: #0d0d0d;
 }
 
 .profile-page-container {
   position: relative;
   top: 0;
   width: 100%;
-  height: 100%;
+  height: auto;
   background-color: #0d0d0d;
 }
 
@@ -412,4 +413,31 @@
   font-weight: 500;
   font-family: "Jost", sans-serif;
   transition: 0.3s;
+}
+
+.edit {
+  margin-bottom: 0;
+  display: inline-flex;
+  height: 15%;
+  margin-top: auto;
+  background-color: #0ddce5;
+  border: none;
+  border-radius: 10px;
+  width: 40%;
+  align-items: center;
+  justify-content: center;
+}
+
+.edit-picture {
+  float: left;
+}
+
+.edit-description {
+  float: right;
+  margin-left: auto;
+}
+
+.button-div {
+  display: inline-flex;
+  height:100%
 }
