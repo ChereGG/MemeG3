@@ -1,0 +1,44 @@
+<!--<p>-->
+<!--  <mat-toolbar color="primary">-->
+<!--    <button class="home-btn" routerLink="/feed">-->
+<!--      <mat-icon class="home_icon">home</mat-icon>-->
+<!--      <span class="span_home_button">MemeYourLife</span>-->
+<!--    </button>-->
+
+<!--    <mat-form-field appearance="fill">-->
+<!--    <mat-label style="color:white">Leave a comment</mat-label>-->
+<!--    <textarea style="color:white" matInput placeholder="Ex. It makes me feel..."></textarea>-->
+<!--  </mat-form-field>-->
+
+
+
+<!--  <span class="example_spacer"></span>-->
+<!--  <button class="profile_btn" mat-icon-button routerLink="/profile" >-->
+<!--    <mat-icon class="account_icon">account_circle</mat-icon>-->
+<!--  </button>-->
+<!--</mat-toolbar>-->
+<!--</p>-->
+
+<mat-toolbar xmlns:style="http://www.w3.org/1999/xhtml">
+<!--      <div style="background-color:red; width: 40px; height:40px"></div>-->
+    <button class="home-btn" routerLink="/feed">
+      <div style="display:flex;align-items: center;/*padding-top:15%;*/">
+      <mat-icon class="home_icon">home</mat-icon>
+      <span class="span_home_button">MemeYourLife</span>
+        </div>
+    </button>
+
+      <mat-form-field floatLabel="never" appearance="standard">
+        <input matInput
+               style="border-bottom:whitesmoke"
+               type="text"
+               placeholder="Search"
+               autocomplete="off"/>
+        <mat-icon  class="search_icon">search</mat-icon>
+      </mat-form-field>
+    <button class="profile_btn" mat-icon-button routerLink="/profile" >
+    <mat-icon class="account_icon">account_circle</mat-icon>
+  </button>
+
+</mat-toolbar>
+
