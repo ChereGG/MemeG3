@@ -78,3 +78,24 @@ def add_user(request):
     else:
         print(postSerializer.errors)
         return JsonResponse({'message': postSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(['GET'])
+#@authentication_classes([TokenAuthentication, ])
+#@permission_classes([IsAuthenticated, ])
+def search_users(request, name):
+    splitted_name = name.split(' ')
+    if (len(splitted_name) == 1):
+        list1 = CustomUser.objects.filter(userfirst_namecontains=splitted_name[0])
+        list2 = CustomUser.objects.filter(userlast_namecontains=splitted_name[0])
+        combined_list = list1 | list2
+        userSerializer = UserSerializer(combined_list, many=True)
+        return JsonResponse(userSerializer.data, safe=False, status=status.HTTP_200_OK)
+
+    if (len(splitted_name) == 2):
+        list1 = CustomUser.objects.filter(userfirst_namecontains=splitted_name[0]).filter(
+            userlast_namecontains=splitted_name[1])
+        list2 = CustomUser.objects.filter(userfirst_namecontains=splitted_name[1]).filter(
+            userlast_namecontains=splitted_name[0])
+        combined_list = list1 | list2
+        userSerializer = UserSerializer(combined_list, many=True)
+        return JsonResponse(userSerializer.data, safe=False, status=status.HTTP_200_OK)
