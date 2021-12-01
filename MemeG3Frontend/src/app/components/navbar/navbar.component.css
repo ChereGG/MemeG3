@@ -54,3 +54,23 @@ mat-form-field{
 
 }
 
+
+.user {
+	 display: flex;
+	 gap: 12px;
+}
+
+.user-info-name {
+	 letter-spacing: 0.4px;
+	 font-size: 14px;
+	 font-weight: 500;
+	 color: #070707;
+}
+
+ .user img {
+	 height: 40px;
+	 width: 40px;
+	 border-radius: 50%;
+	 object-fit: cover;
+   line-height: 0;
+}
