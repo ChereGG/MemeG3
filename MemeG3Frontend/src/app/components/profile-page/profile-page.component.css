@@ -70,10 +70,9 @@
   max-width: 340px;
   margin: auto;
   margin-bottom: 5%;
-  overflow-y: auto;
+  overflow: hidden;
   position: relative;
   z-index: 1;
-  overflow-x: hidden;
   background-color: rgba(0, 255, 255, 1);
   display: flex;
   transition: 0.3s;

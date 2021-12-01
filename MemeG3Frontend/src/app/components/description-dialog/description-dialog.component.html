@@ -1,4 +1,18 @@
-<div>
+<div class="dialog">
+  <h1 class="titlu-dialog" mat-dialog-title>Please choose another description</h1>
+  <div mat-dialog-content>
+     <textarea rows="4" cols="50" [(ngModel)]="descriere">
+  </textarea>
+  </div>
+  <div mat-dialog-actions>
+    <button class="button-dialog" mat-button (click)="close()">No Thanks</button>
+    <button class="button-dialog" mat-button [mat-dialog-close]="this.descriere">Done</button>
+  </div>
+
+</div>
+
+
+<!--<div>
   <h1 mat-dialog-title>Upload a new image</h1>
   <div mat-dialog-content>
     <input [(ngModel)]="descriere">
@@ -7,4 +21,4 @@
     <button mat-button [mat-dialog-close]="this.descriere">Change Description</button>
     <button mat-button (click)="close()">Close</button>
   </div>
-</div>
+</div>-->

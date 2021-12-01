@@ -31,7 +31,9 @@ export class ProfilePageComponent implements OnInit {
     const config = new MatDialogConfig();
     const dialogRef = this.dialog.open(ImageDialogComponent, {
       disableClose: true,
-      autoFocus: true
+      autoFocus: true,
+      //hasBackdrop: false,
+      //scrollStrategy: null,
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result !== undefined) {

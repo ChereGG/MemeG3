@@ -9,10 +9,15 @@ div.mat-dialog-actions{
   position: fixed;
   top: 0;
 }
-
-.image-upload {
-  position: absolute;
-  right: 12px;
-  z-index: 1;
-  top: 10px;
+.titlu-dialog{
+  color: white;
+  font-weight:lighter;
+  font-family: Verdana, sans-serif;
+  text-shadow: 2px 2px 4px #000000;
 }
+.button-dialog{
+  background-color: white;
+  font-weight:lighter;
+  font-family: Verdana, sans-serif;
+}
+
