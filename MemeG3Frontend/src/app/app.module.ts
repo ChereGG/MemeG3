@@ -12,6 +12,13 @@ import { PostComponent } from './components/post/post.component';
 import { FeedComponent } from './components/feed/feed.component';
 import { MemeDialogComponent } from './components/meme-dialog/meme-dialog.component';
 import { AddPostComponent } from './components/add-post/add-post.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ImageDialogComponent } from './components/image-dialog/image-dialog.component';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatInputModule} from '@angular/material/input';
+import { DescriptionDialogComponent } from './components/description-dialog/description-dialog.component';
 
 
 @NgModule({
@@ -22,7 +29,9 @@ import { AddPostComponent } from './components/add-post/add-post.component';
     PostComponent,
     FeedComponent,
     MemeDialogComponent,
-    AddPostComponent
+    AddPostComponent,
+    ImageDialogComponent,
+    DescriptionDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -32,9 +41,15 @@ import { AddPostComponent } from './components/add-post/add-post.component';
     HttpClientModule,
     BrowserModule,
     AppRoutingModule,
-    RouterModule
+    RouterModule,
+    BrowserAnimationsModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
+  bootstrap: [AppComponent],
+  entryComponents: [ImageDialogComponent, DescriptionDialogComponent]
 })
 export class AppModule { }

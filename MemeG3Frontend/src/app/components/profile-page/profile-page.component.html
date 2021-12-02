@@ -15,6 +15,10 @@
           </p>
         </div>
       </div>
+      <div class="button-div">
+        <button class="edit edit-picture" (click)="changePicture()">Edit Picture</button>
+        <button class="edit edit-description" (click)="changeDescription()">Edit Description</button>
+      </div>
     </div>
   </div>
   <div class="profile-posts-container" *ngFor="let post of this.posts index as i">

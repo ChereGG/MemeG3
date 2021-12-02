@@ -63,3 +63,13 @@ class UserSerializerAdd(serializers.ModelSerializer):
                   'password')
     def create(self, validated_data):
         return User.objects.create(**validated_data)
+
+
+class UserSerializerUpload(forms.ModelForm):
+
+    class Meta:
+        model = CustomUser
+        fields = ('id',
+                  'descriere',
+                  'image',
+                  'user')

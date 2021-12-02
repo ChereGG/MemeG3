@@ -8,6 +8,7 @@
 /bazel-out
 
 Pipfile
+Pipfile.lock
 # dependencies
 /node_modules
 
