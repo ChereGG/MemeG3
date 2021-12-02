@@ -2,6 +2,7 @@ import {User} from './User.model';
 
 export class Post {
   id?: bigint;
+  user_id?: string;
   image?: string;
   title?: string;
   description?: string;

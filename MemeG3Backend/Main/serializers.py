@@ -5,6 +5,7 @@ from Main.models import *
 
 
 class PostSerializerGet(serializers.ModelSerializer):
+    user_id = serializers.IntegerField(source='user.user.id')
     username = serializers.CharField(source='user.user.username')
     first_name = serializers.CharField(source='user.user.first_name')
     last_name = serializers.CharField(source='user.user.last_name')
@@ -13,6 +14,7 @@ class PostSerializerGet(serializers.ModelSerializer):
         model = Post
         fields = (
             "id",
+            "user_id",
             "username",
             "first_name",
             "last_name",

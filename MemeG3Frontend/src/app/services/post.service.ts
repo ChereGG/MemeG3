@@ -35,12 +35,12 @@ export class PostService {
 
   }
 
-  getAllProfilePosts(): Observable<any>{
+  getAllProfilePostsByUserID(userID: string): Observable<any>{
     // const token = this.userService.getToken();
     // if (token){
       // this.headers = this.headers.set('Authorization', `Token ${token}`);
     // }
-    return this.http.get(baseUrl + '/profile-posts');
+    return this.http.get(baseUrl + '/users/' + userID + '/posts');
   }
 
 

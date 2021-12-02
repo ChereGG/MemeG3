@@ -55,10 +55,10 @@ def add_post(request):
 
 
 @api_view(['GET'])
-def profile_posts(request):
+def profile_posts(request,user_id):
     if request.method == 'GET':
         data = request.data
-        data['user'] = 1
+        data['user'] = user_id
         posts = Post.objects.all().filter(user_id__exact=data['user'])
         print("\n")
         print(posts)
@@ -103,3 +103,25 @@ def change_description(request):
         user.descriere = request.data['descriere']
         user.save()
         return JsonResponse({'message': 'Foarte bine'}, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+#@authentication_classes([TokenAuthentication, ])
+#@permission_classes([IsAuthenticated, ])
+def search_users(request, name):
+    splitted_name = name.split(' ')
+    if (len(splitted_name) == 1):
+        list1 = CustomUser.objects.filter(user__first_name__contains=splitted_name[0])
+        list2 = CustomUser.objects.filter(user__last_name__contains=splitted_name[0])
+        combined_list = list1 | list2
+        userSerializer = UserSerializer(combined_list, many=True)
+        return JsonResponse(userSerializer.data, safe=False, status=status.HTTP_200_OK)
+
+    if (len(splitted_name) == 2):
+        list1 = CustomUser.objects.filter(user__first_name__contains=splitted_name[0]).filter(
+            user__last_name__contains=splitted_name[1])
+        list2 = CustomUser.objects.filter(user__first_name__contains=splitted_name[1]).filter(
+            user__last_name__contains=splitted_name[0])
+        combined_list = list1 | list2
+        userSerializer = UserSerializer(combined_list, many=True)
+        return JsonResponse(userSerializer.data, safe=False, status=status.HTTP_200_OK)

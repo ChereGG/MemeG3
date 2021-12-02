@@ -19,6 +19,13 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { DescriptionDialogComponent } from './components/description-dialog/description-dialog.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {MatToolbarModule} from "@angular/material/toolbar";
+import {MatIconModule} from "@angular/material/icon";
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 @NgModule({
@@ -31,7 +38,8 @@ import { DescriptionDialogComponent } from './components/description-dialog/desc
     MemeDialogComponent,
     AddPostComponent,
     ImageDialogComponent,
-    DescriptionDialogComponent
+    DescriptionDialogComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
@@ -43,10 +51,14 @@ import { DescriptionDialogComponent } from './components/description-dialog/desc
     AppRoutingModule,
     RouterModule,
     BrowserAnimationsModule,
-    MatDialogModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatAutocompleteModule,
+    MatTooltipModule,
+    MatDialogModule,
   ],
   providers: [{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
   bootstrap: [AppComponent],

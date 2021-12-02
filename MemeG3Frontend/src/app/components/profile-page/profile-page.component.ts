@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Post} from '../../models/Post.model';
 import {PostService} from '../../services/post.service';
 import {User} from '../../models/User.model';
@@ -7,6 +7,7 @@ import {MatDialog, MatDialogModule, MatDialogConfig, DialogPosition} from '@angu
 import {ImageDialogComponent} from '../image-dialog/image-dialog.component';
 import {NoopScrollStrategy} from '@angular/cdk/overlay';
 import {DescriptionDialogComponent} from '../description-dialog/description-dialog.component';
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-profile-page',
@@ -16,12 +17,13 @@ import {DescriptionDialogComponent} from '../description-dialog/description-dial
 export class ProfilePageComponent implements OnInit {
   posts: Post[];
   user: User;
-  constructor(private postService: PostService, private userService: UserService, public dialog: MatDialog) {
-      postService.getAllProfilePosts().subscribe(data => {
+
+  constructor(private route: ActivatedRoute, postService: PostService, userService: UserService, public dialog: MatDialog) {
+      postService.getAllProfilePostsByUserID(this.route.snapshot.params.userID).subscribe(data => {
       this.posts = data;
       console.log(this.posts);
     });
-      userService.getUserById('1').subscribe(data => {
+      userService.getUserById(this.route.snapshot.params.userID).subscribe(data => {
         this.user = data;
       });
 
