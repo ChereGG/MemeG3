@@ -16,7 +16,7 @@
           </p>
         </div>
       </div>
-      <div class="button-div">
+      <div class="button-div" *ngIf="this.route.snapshot.params.userID==1">
         <button class="edit edit-picture" (click)="changePicture()">Edit Picture</button>
         <button class="edit edit-description" (click)="changeDescription()">Edit Description</button>
       </div>

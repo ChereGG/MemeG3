@@ -20,6 +20,8 @@ export class PostComponent implements OnInit {
   openMemeDialog(image: string): void {
        this.dialog.open(MemeDialogComponent, {
                         scrollStrategy: new NoopScrollStrategy(),
+         height: '50%',
+         width: '50%',
          panelClass: 'custom-dialog-container',
                         data: {
                           image

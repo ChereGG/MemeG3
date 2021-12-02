@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
       // alert("orice")
       // alert(response.access)
       localStorage.setItem('token', response.access);
-      this.router.navigate(['profile']);
+      this.router.navigate(['profile/1']);
     }).catch(response => {
       alert('Login error');
     });

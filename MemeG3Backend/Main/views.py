@@ -21,6 +21,7 @@ def feed_posts(request):
        # if not request.user.is_authenticated :
         #    return JsonResponse({'message': 'The user does not exist'}, status=status.HTTP_404_NOT_FOUND)
         posts = Post.objects.all()
+        posts = reversed(posts)
         post_serializer = PostSerializerGet(posts, many=True)
         return JsonResponse(post_serializer.data, safe=False)
 
@@ -61,7 +62,7 @@ def profile_posts(request,user_id):
         data['user'] = user_id
         posts = Post.objects.all().filter(user_id__exact=data['user'])
         print("\n")
-        print(posts)
+        posts = reversed(posts)
         post_serializer = PostSerializerGet(posts, many=True)
         return JsonResponse(post_serializer.data, safe=False)
 
