@@ -18,7 +18,7 @@ export class ProfilePageComponent implements OnInit {
   posts: Post[];
   user: User;
 
-  constructor(private route: ActivatedRoute, postService: PostService, userService: UserService, public dialog: MatDialog) {
+  constructor(private route: ActivatedRoute, private postService: PostService, private userService: UserService, public dialog: MatDialog) {
       postService.getAllProfilePostsByUserID(this.route.snapshot.params.userID).subscribe(data => {
       this.posts = data;
       console.log(this.posts);
