@@ -1,5 +1,6 @@
 <div class="center-screen">
-  <div>
+  <button (click) = "toggleForm()" id="showForm" *ngIf="!isToggled"> Add Meme</button>
+  <div *ngIf="isToggled">
   <br>
   <form enctype="multipart/form-data" [formGroup]="postForm">
 

@@ -29,4 +29,9 @@
   max-height: 600px;
 }
 
+.add-meme-container{
+  position: fixed;
+  top: 60px;
+  left: 30px;
+}
 

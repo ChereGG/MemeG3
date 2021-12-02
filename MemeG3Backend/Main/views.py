@@ -47,7 +47,8 @@ def add_post(request):
     postSerializer = PostSerializerUpload(data=request.data)
     if postSerializer.is_valid():
         post = postSerializer.save()
-        return JsonResponse(postSerializer.data, status=status.HTTP_200_OK)
+        newPost = PostSerializerGet(Post.objects.get(pk=post.id))
+        return JsonResponse(newPost.data, status=status.HTTP_200_OK)
     else:
         print(postSerializer.errors)
         return JsonResponse({'message': postSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
