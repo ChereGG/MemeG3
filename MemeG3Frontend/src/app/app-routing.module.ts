@@ -8,7 +8,7 @@ import {FeedComponent} from './components/feed/feed.component';
 import {AddPostComponent} from './components/add-post/add-post.component';
 
 const routes: Routes = [
-  { path: 'profile', component: ProfilePageComponent },
+  { path: 'profile/:userID', component: ProfilePageComponent },
   { path: 'login', component: LoginComponent },
   { path: '', component: AppComponent },
   {path: 'feed', component: FeedComponent},

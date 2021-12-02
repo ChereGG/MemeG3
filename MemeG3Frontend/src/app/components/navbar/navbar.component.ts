@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {FormControl} from '@angular/forms';
-import {User} from "../../models/User.model";
-import {Observable} from "rxjs";
-import {debounceTime, finalize, map, startWith, switchMap, tap} from "rxjs/operators";
-import {UserService} from "../../services/user.service";
+import {User} from '../../models/User.model';
+import {Observable} from 'rxjs';
+import {debounceTime, finalize, map, startWith, switchMap, tap} from 'rxjs/operators';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +13,7 @@ import {UserService} from "../../services/user.service";
 })
 export class NavbarComponent implements OnInit {
 
-  constructor(private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService) { }
   myControl = new FormControl();
   searchName: '';
   isLoading = false;
@@ -43,12 +43,17 @@ export class NavbarComponent implements OnInit {
       )
       .subscribe(data => {
         console.log(data);
-          this.searchedUsers = data;
+        this.searchedUsers = data;
       });
   }
 
    getImagePath(path: string): string{
     return 'http://localhost:8080' + path;
+  }
+
+  navigateToUserProfile(userID: string): void{
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
+    this.router.navigate(['profile/' + userID]));
   }
 
 }

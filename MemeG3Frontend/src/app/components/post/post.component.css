@@ -38,7 +38,14 @@
 	 font-size: 14px;
 	 font-weight: 500;
 	 color: #fff;
+   cursor: pointer;
 }
+
+ .card header .user-info-name:hover{
+     text-decoration: underline;
+
+ }
+
  .card header .user-info-time {
 	 font-size: 12px;
 	 color: rgba(255, 255, 255, 0.588);
@@ -81,5 +88,6 @@
    max-width: 100%;
    max-height: 50vh;
    margin: 0 auto;
+   cursor: pointer;
  }
 

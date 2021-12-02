@@ -18,19 +18,18 @@
            <mat-autocomplete #auto="matAutocomplete">
       <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
       <ng-container *ngIf="!isLoading">
-        <mat-option *ngFor="let user of searchedUsers" [value]="user.first_name+' '+user.last_name" style="line-height: 15px">
+        <mat-option *ngFor="let user of searchedUsers" [value]="user.first_name+' '+user.last_name" (click)="navigateToUserProfile(user.id)" style="line-height: 15px">
           <header class="user">
             <img src="{{this.getImagePath(this.user.image)}}" alt="">
             <div class="user-info">
                 <h2 class="user-info-name">{{this.user.first_name+" "+this.user.last_name}}</h2>
             </div>
         </header>
-<!--          <span><b>{{user.first_name}}</b> ({{user.first_name}})</span>-->
         </mat-option>
       </ng-container>
     </mat-autocomplete>
       </mat-form-field>
-    <button class="profile_btn" mat-icon-button routerLink="/profile" >
+    <button class="profile_btn" mat-icon-button (click)="navigateToUserProfile('1')" >
     <mat-icon class="account_icon">account_circle</mat-icon>
   </button>
 

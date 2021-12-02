@@ -54,10 +54,10 @@ def add_post(request):
 
 
 @api_view(['GET'])
-def profile_posts(request):
+def profile_posts(request,user_id):
     if request.method == 'GET':
         data = request.data
-        data['user'] = 1
+        data['user'] = user_id
         posts = Post.objects.all().filter(user_id__exact=data['user'])
         print("\n")
         print(posts)
