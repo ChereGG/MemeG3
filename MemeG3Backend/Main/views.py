@@ -1,11 +1,12 @@
+from os import error
 from django.http import JsonResponse, QueryDict
 from django.http.response import Http404, HttpResponse
 from django.shortcuts import render
-from django.contrib.auth.hashers import make_password,check_password
+from django.contrib.auth.hashers import make_password, check_password
 from django.contrib.auth.tokens import default_token_generator
 from rest_framework import status
 from datetime import datetime
-
+from rest_framework_simplejwt.backends import TokenBackend
 from rest_framework.decorators import api_view, authentication_classes, parser_classes, permission_classes
 from rest_framework.parsers import JSONParser, MultiPartParser
 
@@ -14,9 +15,24 @@ from Main.serializers import *
 
 
 @api_view(['GET'])
-#@authentication_classes([TokenAuthentication, ])
-#@permission_classes([IsAuthenticated, ])
+# @authentication_classes([TokenAuthentication, ])
+# @permission_classes([IsAuthenticated, ])
 def feed_posts(request):
+    # try:
+    #     print(request.user)
+    # except AttributeError:
+    #     pass
+
+    try:
+        token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
+        valid_data = TokenBackend(
+            algorithm='HS256').decode(token, verify=False)
+        # print(valid_data)
+        user_id = valid_data['user_id']
+    except Exception as v:
+        print("validation error", v)
+
+    print('user_id', user_id)
     if request.method == 'GET':
        # if not request.user.is_authenticated :
         #    return JsonResponse({'message': 'The user does not exist'}, status=status.HTTP_404_NOT_FOUND)
@@ -56,7 +72,7 @@ def add_post(request):
 
 
 @api_view(['GET'])
-def profile_posts(request,user_id):
+def profile_posts(request, user_id):
     if request.method == 'GET':
         data = request.data
         data['user'] = user_id
@@ -67,9 +83,9 @@ def profile_posts(request,user_id):
         return JsonResponse(post_serializer.data, safe=False)
 
 
-
 @api_view(['POST'])
 @parser_classes([JSONParser])
+@permission_classes([])
 def add_user(request):
     data = request.data
     data['password'] = make_password(data['password'])
@@ -89,7 +105,8 @@ def change_picture(request):
         user_data = QueryDict('', mutable=True)
         user_data['user'] = user.user
         user_data['descriere'] = user.descriere
-        serializer_upload = UserSerializerUpload(user_data, request.FILES, instance=user)
+        serializer_upload = UserSerializerUpload(
+            user_data, request.FILES, instance=user)
         if serializer_upload.is_valid():
             serializer_upload.save()
             serializer = UserSerializer(user)
@@ -107,13 +124,15 @@ def change_description(request):
 
 
 @api_view(['GET'])
-#@authentication_classes([TokenAuthentication, ])
-#@permission_classes([IsAuthenticated, ])
+# @authentication_classes([TokenAuthentication, ])
+# @permission_classes([IsAuthenticated, ])
 def search_users(request, name):
     splitted_name = name.split(' ')
     if (len(splitted_name) == 1):
-        list1 = CustomUser.objects.filter(user__first_name__contains=splitted_name[0])
-        list2 = CustomUser.objects.filter(user__last_name__contains=splitted_name[0])
+        list1 = CustomUser.objects.filter(
+            user__first_name__contains=splitted_name[0])
+        list2 = CustomUser.objects.filter(
+            user__last_name__contains=splitted_name[0])
         combined_list = list1 | list2
         userSerializer = UserSerializer(combined_list, many=True)
         return JsonResponse(userSerializer.data, safe=False, status=status.HTTP_200_OK)
