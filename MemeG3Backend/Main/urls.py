@@ -13,6 +13,7 @@ urlpatterns = [
     path('api/users', views.add_user),
     path('api/users/<str:user_id>/posts', views.profile_posts),
     path('token', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/users/<str:name>', views.search_users),
     path('api/change-picture', views.change_picture),
     path('api/change-description', views.change_description)
