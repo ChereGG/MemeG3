@@ -12,7 +12,7 @@ import {UserService} from '../../services/user.service';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  id = localStorage.getItem('idUser');
   constructor(private router: Router, private userService: UserService) { }
   myControl = new FormControl();
   searchName: '';

@@ -14,28 +14,22 @@ from Main.models import Post, CustomUser
 from Main.serializers import *
 
 
-@api_view(['GET'])
-# @authentication_classes([TokenAuthentication, ])
-# @permission_classes([IsAuthenticated, ])
-def feed_posts(request):
-    # try:
-    #     print(request.user)
-    # except AttributeError:
-    #     pass
-
+def get_id(request):
     try:
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         valid_data = TokenBackend(
             algorithm='HS256').decode(token, verify=False)
-        # print(valid_data)
         user_id = valid_data['user_id']
+        return user_id
     except Exception as v:
         print("validation error", v)
 
+
+@api_view(['GET'])
+def feed_posts(request):
+    user_id = get_id(request)
     print('user_id', user_id)
     if request.method == 'GET':
-       # if not request.user.is_authenticated :
-        #    return JsonResponse({'message': 'The user does not exist'}, status=status.HTTP_404_NOT_FOUND)
         posts = Post.objects.all()
         posts = reversed(posts)
         post_serializer = PostSerializerGet(posts, many=True)
@@ -43,8 +37,6 @@ def feed_posts(request):
 
 
 @api_view(['GET'])
-# @authentication_classes([TokenAuthentication, ])
-# @permission_classes([IsAuthenticated, ])
 def get_user_by_id(request, userID):
     try:
         user = CustomUser.objects.get(pk=userID)
@@ -59,8 +51,7 @@ def get_user_by_id(request, userID):
 @parser_classes([MultiPartParser])
 def add_post(request):
     data = request.data
-
-    data['user'] = 1
+    data['user'] = get_id(request)
     postSerializer = PostSerializerUpload(data=request.data)
     if postSerializer.is_valid():
         post = postSerializer.save()
@@ -101,7 +92,8 @@ def add_user(request):
 @api_view(['PUT'])
 def change_picture(request):
     if request.method == 'PUT':
-        user = CustomUser.objects.get(user_id=1)
+        id_user = get_id(request)
+        user = CustomUser.objects.get(user_id=id_user)
         user_data = QueryDict('', mutable=True)
         user_data['user'] = user.user
         user_data['descriere'] = user.descriere
@@ -117,7 +109,8 @@ def change_picture(request):
 @api_view(['PUT'])
 def change_description(request):
     if request.method == 'PUT':
-        user = CustomUser.objects.get(user_id=1)
+        id_user = get_id(request)
+        user = CustomUser.objects.get(user_id=id_user)
         user.descriere = request.data['descriere']
         user.save()
         return JsonResponse({'message': 'Foarte bine'}, status=status.HTTP_200_OK)
@@ -145,3 +138,10 @@ def search_users(request, name):
         combined_list = list1 | list2
         userSerializer = UserSerializer(combined_list, many=True)
         return JsonResponse(userSerializer.data, safe=False, status=status.HTTP_200_OK)
+
+
+@api_view(['GET'])
+def get_user_id(request):
+    if request.method == 'GET':
+        user_id = get_id(request)
+        return JsonResponse({'id': user_id}, status=status.HTTP_200_OK)

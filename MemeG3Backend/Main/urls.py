@@ -16,7 +16,8 @@ urlpatterns = [
     path('token/refresh', TokenRefreshView.as_view(), name='token_refresh'),
     path('api/users/<str:name>', views.search_users),
     path('api/change-picture', views.change_picture),
-    path('api/change-description', views.change_description)
+    path('api/change-description', views.change_description),
+    path('api/get-user-id', views.get_user_id)
 ]
 
 if settings.DEBUG:

@@ -17,7 +17,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class ProfilePageComponent implements OnInit {
   posts: Post[];
   user: User;
-
+  id = localStorage.getItem('idUser');
   constructor(public route: ActivatedRoute, private postService: PostService, private userService: UserService, public dialog: MatDialog) {
       postService.getAllProfilePostsByUserID(this.route.snapshot.params.userID).subscribe(data => {
       this.posts = data;

@@ -15,14 +15,16 @@ export class PostService {
   });
 
   getAllFeedPosts(): Observable<any>{
-    // const token = this.userService.getToken();
-    // if (token){
-      // this.headers = this.headers.set('Authorization', `Token ${token}`);
-    // }
-    return this.http.get(baseUrl + '/posts');
+    const token = localStorage.getItem('token');
+    return this.http.get(baseUrl + '/posts', {
+      headers: {
+        Authorization: token
+      }
+    });
   }
 
   addPost(post: PostUpload, image: File): Observable<any>{
+    const token = localStorage.getItem('token');
     const formData = new FormData();
     formData.append('image', image, image.name);
     formData.append('description', post.description);
@@ -31,17 +33,25 @@ export class PostService {
     formData.append('no_likes', '0');
 
     console.log(baseUrl);
-    return this.http.post(baseUrl + '/post', formData);
-
+    return this.http.post(baseUrl + '/post', formData, {
+      headers: {
+        Authorization: token
+      }
+    });
   }
 
   getAllProfilePostsByUserID(userID: string): Observable<any>{
-    // const token = this.userService.getToken();
-    // if (token){
-      // this.headers = this.headers.set('Authorization', `Token ${token}`);
-    // }
-    return this.http.get(baseUrl + '/users/' + userID + '/posts');
+   const token = localStorage.getItem('token');
+   return this.http.get(baseUrl + '/users/' + userID + '/posts', {
+      headers: {
+        Authorization: token
+      }
+    });
   }
+
+
+
+
 
 
 

@@ -1,7 +1,7 @@
 <app-navbar></app-navbar>
 <div class="profile-page-container">
-  <div class="card" data-state="#about">
-    <div class="card-header">
+  <div class="card" data-state="#about" *ngIf="user!==undefined">
+    <div class="card-header" >
       <div class="card-cover"
            style="background-image: url('https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80')"></div>
       <img class="card-avatar" src="{{this.getImagePath(this.user.image)}}" alt="avatar"/>
@@ -16,7 +16,7 @@
           </p>
         </div>
       </div>
-      <div class="button-div" *ngIf="this.route.snapshot.params.userID==1">
+      <div class="button-div" *ngIf="this.route.snapshot.params.userID==this.id">
         <button class="edit edit-picture" (click)="changePicture()">Edit Picture</button>
         <button class="edit edit-description" (click)="changeDescription()">Edit Description</button>
       </div>

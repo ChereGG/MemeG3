@@ -14,30 +14,50 @@ export class UserService {
   });
 
     getUserById(id: string): Observable<any>{
-    // const token = this.userService.getToken();
-    // if (token){
-      // this.headers = this.headers.set('Authorization', `Token ${token}`);
-    // }
-    return this.http.get(baseUrl + '/users/' + id);
+    const token = localStorage.getItem('token');
+    return this.http.get(baseUrl + '/users/' + id, {
+      headers: {
+        Authorization: token
+      }
+    });
   }
   changeImage(data: any): Observable<any> {
-      return this.http.put(baseUrl + '/change-picture', data);
+      const token = localStorage.getItem('token');
+      return this.http.put(baseUrl + '/change-picture', data, {
+      headers: {
+        Authorization: token
+      }
+    });
   }
   changeDescription(data: any): Observable<any> {
-      return this.http.put(baseUrl + '/change-description', data);
+      const token = localStorage.getItem('token');
+      return this.http.put(baseUrl + '/change-description', data,{
+      headers: {
+        Authorization: token
+      }
+    });
   }
 
 
     searchUsersByName(name: any): Observable<any>{
-    // const token = this.userService.getToken();
-    // if (token){
-    // this.headers = this.headers.set('Authorization', `Token ${token}`);
-    // }
-    if (name.trim() !== '') {
-      return this.http.get(baseUrl + '/users/' + name);
+      const token = localStorage.getItem('token');
+      if (name.trim() !== '') {
+      return this.http.get(baseUrl + '/users/' + name, {
+      headers: {
+        Authorization: token
+      }
+    });
     }
     else {
       return EMPTY;
     }
+  }
+  getUserId(): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.get(baseUrl + '/get-user-id', {
+      headers: {
+        Authorization: token
+      }
+    });
   }
 }
