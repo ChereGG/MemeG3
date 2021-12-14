@@ -30,8 +30,10 @@ def feed_posts(request):
     user_id = get_id(request)
     print('user_id', user_id)
     if request.method == 'GET':
-        posts = Post.objects.all()
-        posts = reversed(posts)
+        followed_users = UserFollow.objects.filter(user1_id=user_id)
+        posts = []
+        for followed_user in followed_users:
+            posts.extend(Post.objects.filter(user_id=followed_user.user2_id))
         post_serializer = PostSerializerGet(posts, many=True)
         return JsonResponse(post_serializer.data, safe=False)
 
@@ -145,3 +147,37 @@ def get_user_id(request):
     if request.method == 'GET':
         user_id = get_id(request)
         return JsonResponse({'id': user_id}, status=status.HTTP_200_OK)
+
+
+@api_view(['PUT'])
+def follow_user(request, followed_user_id):
+    if request.method == 'PUT':
+        user_id = get_id(request)
+        follow = UserFollow.objects.create(user1_id=user_id, user2_id=followed_user_id)
+        follow.save()
+        return JsonResponse({'message': f'User {user_id} followed {followed_user_id}'}, safe=False,
+                            status=status.HTTP_201_CREATED)
+
+
+@api_view(['PUT'])
+def unfollow_user(request, unfollowed_user_id):
+    if request.method == 'PUT':
+        user_id = get_id(request)
+        follow = UserFollow.objects.get(user1_id=user_id, user2_id=unfollowed_user_id)
+        if follow is not None:
+            follow.delete()
+            return JsonResponse({'message': f'User {user_id} unfollowed {unfollowed_user_id}'}, safe=False,
+                                status=status.HTTP_201_CREATED)
+        else:
+            return JsonResponse({'message': 'Error on unfollow'}, safe=False, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def is_follow(request, user_id):
+    if request.method == 'GET':
+        my_id = get_id(request)
+        try:
+            follow = UserFollow.objects.get(user1_id=my_id, user2_id=user_id)
+            return JsonResponse({'following': 1}, status=status.HTTP_200_OK)
+        except Exception:
+            return JsonResponse({'following': 0}, status=status.HTTP_200_OK)

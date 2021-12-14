@@ -18,6 +18,7 @@ export class ProfilePageComponent implements OnInit {
   posts: Post[];
   user: User;
   id = localStorage.getItem('idUser');
+  isFollowing: number;
   constructor(public route: ActivatedRoute, private postService: PostService, private userService: UserService, public dialog: MatDialog) {
       postService.getAllProfilePostsByUserID(this.route.snapshot.params.userID).subscribe(data => {
       this.posts = data;
@@ -26,7 +27,9 @@ export class ProfilePageComponent implements OnInit {
       userService.getUserById(this.route.snapshot.params.userID).subscribe(data => {
         this.user = data;
       });
-
+      this.is_follow().then(value => {
+        this.isFollowing = value;
+      });
   }
 
   changePicture(): void {
@@ -74,5 +77,27 @@ export class ProfilePageComponent implements OnInit {
         });
       }
     });
+  }
+  followUser(): void {
+    const id = this.route.snapshot.params.userID;
+    this.userService.follow(id).subscribe(response => {
+      console.log(response);
+    });
+    window.location.reload();
+  }
+  async is_follow(): Promise<number> {
+    const id = this.route.snapshot.params.userID;
+    let following = 0;
+    await this.userService.is_follow(id).then(response => {
+      following = response.following;
+    });
+    return following;
+  }
+  unfollowUser(): void {
+    const id = this.route.snapshot.params.userID;
+    this.userService.unfollow(id).subscribe(response => {
+      console.log(response);
+    });
+    window.location.reload();
   }
 }

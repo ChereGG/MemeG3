@@ -31,6 +31,7 @@ export class UserService {
   }
   changeDescription(data: any): Observable<any> {
       const token = localStorage.getItem('token');
+      alert(token);
       return this.http.put(baseUrl + '/change-description', data,{
       headers: {
         Authorization: token
@@ -55,6 +56,30 @@ export class UserService {
   getUserId(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(baseUrl + '/get-user-id', {
+      headers: {
+        Authorization: token
+      }
+    });
+  }
+  follow(userID: any): Observable<any> {
+      const token = localStorage.getItem('token');
+      return this.http.put(baseUrl + '/follow/' + userID.toString(), {}, {
+      headers: {
+        Authorization: token
+      }
+    });
+  }
+  async is_follow(userID: any): Promise<any> {
+      const token = localStorage.getItem('token');
+      return this.http.get(baseUrl + '/is-follow/' + userID.toString(), {
+      headers: {
+        Authorization: token
+      }
+    }).toPromise();
+  }
+  unfollow(userID: any): Observable<any> {
+    const token = localStorage.getItem('token');
+    return this.http.put(baseUrl + '/unfollow/' + userID.toString(), {}, {
       headers: {
         Authorization: token
       }
