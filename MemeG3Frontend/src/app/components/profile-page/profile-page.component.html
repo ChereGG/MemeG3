@@ -20,6 +20,12 @@
         <button class="edit edit-picture" (click)="changePicture()">Edit Picture</button>
         <button class="edit edit-description" (click)="changeDescription()">Edit Description</button>
       </div>
+      <div class="button-div" *ngIf="this.route.snapshot.params.userID!=this.id && this.isFollowing == 0">
+        <button class="edit follow" (click)="followUser()">Follow</button>
+      </div>
+      <div class="button-div" *ngIf="this.route.snapshot.params.userID!=this.id && this.isFollowing == 1">
+        <button class="edit follow" (click)="unfollowUser()">Unfollow</button>
+      </div>
     </div>
   </div>
   <div class="profile-posts-container" *ngFor="let post of this.posts index as i">
