@@ -29,25 +29,30 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login() {
-    this.loginRestService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).toPromise().then((response: any) => {
-      // alert("orice")
-      // alert(response.access)
-      localStorage.setItem('token', 'Bearer ' + response.access);
-      this.userService.getUserId().subscribe(response2 => {
-        localStorage.setItem('idUser', response2.id);
-        this.router.navigate(['profile/' + response2.id]);
-      });
-
+  login(): void {
+    this.loginRestService
+      .login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
+      .toPromise()
+      .then((response: any) => {
+        // alert("orice")
+        // alert(response.access)
+        localStorage.setItem('token', 'Bearer ' + response.access);
+        this.userService.getUserId().subscribe(response2 => {
+          localStorage.setItem('idUser', response2.id);
+          this.router.navigate(['profile/' + response2.id]);
+        });
     }).catch(response => {
       alert('Login error');
     });
     // this.messageService.add({ severity: 'error', summary: 'Login error', detail: "Is the server on?" });
   }
 
-  register() {
-    this.loginRestService.register(this.loginForm.controls.username.value, this.loginForm.controls.password.value).toPromise().then((response: any) => {
-      if (response.message == 'ok') {
+  register(): void {
+    this.loginRestService
+      .register(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
+      .toPromise()
+      .then((response: any) => {
+      if (response.message === 'ok') {
         alert('Register successful');
       }
       else {
@@ -55,6 +60,4 @@ export class LoginComponent implements OnInit {
       }
     });
   }
-
-
 }

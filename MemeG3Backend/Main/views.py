@@ -115,9 +115,16 @@ def profile_posts(request, user_id):
 @parser_classes([JSONParser])
 @permission_classes([])
 def add_user(request):
-    data = request.data
-    data['password'] = make_password(data['password'])
-    postSerializer = UserSerializerAdd(data=request.data)
+    user = User.objects.create_user(
+        username=request.data.get('username'),
+        password=request.data.get('password'),
+        email=request.data.get('email')
+    )
+    customData = {
+        'user': user.id,
+        'descriere':request.data.get('descriere')
+    }
+    postSerializer = CustomUserSerializerAdd(data=customData)
     if postSerializer.is_valid():
         post = postSerializer.save()
         return JsonResponse({'message': "ok"}, status=status.HTTP_200_OK)

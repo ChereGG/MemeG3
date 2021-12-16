@@ -27,6 +27,7 @@ export class PostService {
     const token = localStorage.getItem('token');
     const formData = new FormData();
     formData.append('image', image, image.name);
+    console.log(JSON.stringify(formData));
     formData.append('description', post.description);
     formData.append('title', post.title);
     formData.append('date', new Date().toISOString());
