@@ -437,6 +437,10 @@
   margin-left: auto;
 }
 
+.follow {
+  float: left;
+}
+
 .button-div {
   display: inline-flex;
   height:100%

@@ -61,6 +61,7 @@ class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username')
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name')
+
     class Meta:
         model = CustomUser
         fields = ('id',
@@ -78,6 +79,7 @@ class UserSerializerAdd(serializers.ModelSerializer):
         model = User
         fields = ('username',
                   'password')
+
     def create(self, validated_data):
         return User.objects.create(**validated_data)
 
@@ -90,3 +92,10 @@ class UserSerializerUpload(forms.ModelForm):
                   'descriere',
                   'image',
                   'user')
+
+
+class UserFollowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserFollow
+        fields = ('user1',
+                  'user2')

@@ -20,11 +20,10 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import { DescriptionDialogComponent } from './components/description-dialog/description-dialog.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
-import {MatToolbarModule} from "@angular/material/toolbar";
-import {MatIconModule} from "@angular/material/icon";
-import {MatAutocompleteModule} from "@angular/material/autocomplete";
-import {MatTooltipModule} from "@angular/material/tooltip";
-import { CommentsComponent } from './components/comments/comments.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import {MatIconModule} from '@angular/material/icon';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 
 @NgModule({
