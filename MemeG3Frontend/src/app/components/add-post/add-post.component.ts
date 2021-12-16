@@ -3,6 +3,8 @@ import {FormBuilder, FormControl} from '@angular/forms';
 import {PostService} from '../../services/post.service';
 import {PostUpload} from '../../models/PostUpload.model';
 import {outputPath} from '@angular-devkit/build-angular/src/test-utils';
+import {ToastService} from '../../services/toast.service';
+import {DialogLayoutDisplay} from '@costlydeveloper/ngx-awesome-popup';
 
 @Component({
   selector: 'app-add-post',
@@ -20,7 +22,8 @@ export class AddPostComponent implements OnInit {
 
   constructor(private postService: PostService,
               private formBuilder: FormBuilder,
-              private contRef: ViewContainerRef){}
+              private contRef: ViewContainerRef,
+              private toastService: ToastService){}
 
 
 
@@ -46,11 +49,11 @@ export class AddPostComponent implements OnInit {
     const post = new PostUpload(description, title);
     this.postService.addPost(post, this.selectedFile).subscribe((data) => {
       console.log(data);
-      alert('Meme posted!');
+      this.toastService.toastNotification('', 'Meme added successfully!', DialogLayoutDisplay.SUCCESS);
       this.isToggled = false;
       this.memePosted.emit(data);
     }, error => {
-
+      this.toastService.toastNotification('Error', 'An error has occurred while adding meme', DialogLayoutDisplay.WARNING);
     });
 
   }

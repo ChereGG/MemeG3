@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
                   this.router.navigate(['profile/' + getUserResponse.id]);
                 });
               }).catch(() => {
-                alert('Login error');
+                this.toastService.toastNotification('Error', 'Login has failed', DialogLayoutDisplay.WARNING);
               });
           }
           else {
