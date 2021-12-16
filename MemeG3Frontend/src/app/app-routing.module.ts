@@ -6,6 +6,7 @@ import { ProfilePageComponent } from './components/profile-page/profile-page.com
 import { AppComponent } from './app.component';
 import {FeedComponent} from './components/feed/feed.component';
 import {AddPostComponent} from './components/add-post/add-post.component';
+import {CommentsComponent} from "./components/comments/comments.component";
 
 const routes: Routes = [
   { path: 'profile/:userID', component: ProfilePageComponent },

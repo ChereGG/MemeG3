@@ -4,12 +4,24 @@ from django.contrib.auth.models import User
 from Main.models import *
 
 
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+            model = Comment
+            fields = (
+                "id",
+                "postId",
+                "text",
+                "userName"
+            )
+
 class PostSerializerGet(serializers.ModelSerializer):
+    comments = CommentSerializer(source='comment_set', many=True)
     user_id = serializers.IntegerField(source='user.user.id')
     username = serializers.CharField(source='user.user.username')
     first_name = serializers.CharField(source='user.user.first_name')
     last_name = serializers.CharField(source='user.user.last_name')
     profile_pic = serializers.ImageField(source='user.image')
+
     class Meta:
         model = Post
         fields = (
@@ -24,7 +36,10 @@ class PostSerializerGet(serializers.ModelSerializer):
             "title",
             "description",
             "no_likes",
+            "comments"
         )
+
+
 
 
 class PostSerializerUpload(serializers.ModelSerializer):
@@ -46,6 +61,7 @@ class UserSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username')
     first_name = serializers.CharField(source='user.first_name')
     last_name = serializers.CharField(source='user.last_name')
+
     class Meta:
         model = CustomUser
         fields = ('id',
@@ -63,6 +79,7 @@ class UserSerializerAdd(serializers.ModelSerializer):
         model = User
         fields = ('username',
                   'password')
+
     def create(self, validated_data):
         return User.objects.create(**validated_data)
 
@@ -81,3 +98,9 @@ class PostUserLikeSerializer(serializers.ModelSerializer):
         model = PostUserLike
         fields = ('post',
                   'user')
+
+class UserFollowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = UserFollow
+        fields = ('user1',
+                  'user2')

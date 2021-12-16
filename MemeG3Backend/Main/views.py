@@ -39,6 +39,10 @@ def feed_posts(request):
         #         post.is_liked_by_user = False
         # for post in posts:
         #     print(post)
+        followed_users = UserFollow.objects.filter(user1_id=user_id)
+        posts = []
+        for followed_user in followed_users:
+            posts.extend(Post.objects.filter(user_id=followed_user.user2_id))
         post_serializer = PostSerializerGet(posts, many=True)
         return JsonResponse(post_serializer.data, safe=False)
 
@@ -67,6 +71,20 @@ def add_post(request):
     else:
         print(postSerializer.errors)
         return JsonResponse({'message': postSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+def add_comment(request):
+    data = request.data
+    data['userName'] = CustomUser.objects.get(pk = get_id(request)).user.username
+    commentSerializer = CommentSerializer(data = data)
+    if commentSerializer.is_valid():
+        comment = commentSerializer.save()
+        newComment = CommentSerializer(Comment.objects.get(pk=comment.id))
+        return JsonResponse(newComment.data, status=status.HTTP_200_OK)
+    else:
+        print(commentSerializer.errors)
+        return JsonResponse({'message': commentSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['GET'])
@@ -172,3 +190,36 @@ def like_post(request, postID):
             postUserLike = PostUserLike.objects.create(post=post, user=user)
             postUserLike.save()
             return JsonResponse({'message': 'Liked'}, status=status.HTTP_200_OK)
+
+@api_view(['PUT'])
+def follow_user(request, followed_user_id):
+    if request.method == 'PUT':
+        user_id = get_id(request)
+        follow = UserFollow.objects.create(user1_id=user_id, user2_id=followed_user_id)
+        follow.save()
+        return JsonResponse({'message': f'User {user_id} followed {followed_user_id}'}, safe=False,
+                            status=status.HTTP_201_CREATED)
+
+
+@api_view(['PUT'])
+def unfollow_user(request, unfollowed_user_id):
+    if request.method == 'PUT':
+        user_id = get_id(request)
+        follow = UserFollow.objects.get(user1_id=user_id, user2_id=unfollowed_user_id)
+        if follow is not None:
+            follow.delete()
+            return JsonResponse({'message': f'User {user_id} unfollowed {unfollowed_user_id}'}, safe=False,
+                                status=status.HTTP_201_CREATED)
+        else:
+            return JsonResponse({'message': 'Error on unfollow'}, safe=False, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['GET'])
+def is_follow(request, user_id):
+    if request.method == 'GET':
+        my_id = get_id(request)
+        try:
+            follow = UserFollow.objects.get(user1_id=my_id, user2_id=user_id)
+            return JsonResponse({'following': 1}, status=status.HTTP_200_OK)
+        except Exception:
+            return JsonResponse({'following': 0}, status=status.HTTP_200_OK)

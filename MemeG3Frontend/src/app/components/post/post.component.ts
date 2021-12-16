@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Post} from '../../models/Post.model';
 import {MemeDialogComponent} from '../meme-dialog/meme-dialog.component';
 import {NoopScrollStrategy} from '@angular/cdk/overlay';
@@ -17,6 +17,9 @@ export class PostComponent implements OnInit {
   constructor(private router: Router, private dialog: MatDialog,private postService:PostService) {
     // this.post.is_liked_by_user = false;
   }
+
+  @Output() commentsOpen = new EventEmitter<any>();
+
   ngOnInit(): void {
   }
 

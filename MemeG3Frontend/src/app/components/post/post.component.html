@@ -18,6 +18,6 @@
             <mat-icon *ngIf="!post.is_liked_by_user"> favorite_outline </mat-icon>
             {{this.post.no_likes}}
           </button>
-            <p class="comment">10 comment</p>
+            <p class="comment"  style="cursor: pointer" (click)="commentsOpen.emit(post.id)">{{post.comments.length}} comment</p>
         </section>
     </div>

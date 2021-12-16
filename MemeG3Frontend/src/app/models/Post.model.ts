@@ -13,5 +13,5 @@ export class Post {
   last_name?: string;
   profile_pic?: string;
   is_liked_by_user: boolean;
-
+  comments?: any;
 }

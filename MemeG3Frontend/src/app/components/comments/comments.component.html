@@ -1,0 +1,15 @@
+<div>
+  <div class="card" style="color: white">
+    <div style="margin-bottom: 20px">
+      <p>Adauga comentariu</p>
+      <form [formGroup]="form">
+        <input id="text" type="text" placeholder="text" formControlName="text" >
+        <button (click)="saveComment()"> Posteaza </button>
+      </form>
+    </div>
+    <div *ngFor="let comment of this.comments index as i" style="background: grey;border-radius: 50px;margin-bottom: 20px; width: auto">
+      <div style="margin-left: 10px; ">{{comment.userName}}:</div>
+      <div style="margin-left: 50px; ">{{comment.text}}</div>
+    </div>
+  </div>
+</div>
