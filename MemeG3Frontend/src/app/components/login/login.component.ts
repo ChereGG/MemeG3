@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { LoginRestService } from '../../services/login-rest.service';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {LoginRestService} from '../../services/login-rest.service';
 import {Router} from '@angular/router';
 import {UserService} from '../../services/user.service';
+import {ToastService} from '../../services/toast.service';
+import {DialogLayoutDisplay} from '@costlydeveloper/ngx-awesome-popup';
+
 // import {MessageService} from "primeng/api";
 
 @Component({
@@ -19,6 +22,7 @@ export class LoginComponent implements OnInit {
               private loginRestService: LoginRestService,
               private router: Router,
               private userService: UserService,
+              private toastService: ToastService
     // ,private messageService: MessageService,
   ) { }
 
@@ -29,32 +33,23 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  login() {
-    this.loginRestService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).toPromise().then((response: any) => {
-      // alert("orice")
-      // alert(response.access)
-      localStorage.setItem('token', 'Bearer ' + response.access);
-      this.userService.getUserId().subscribe(response2 => {
-        localStorage.setItem('idUser', response2.id);
-        this.router.navigate(['profile/' + response2.id]);
-      });
-
+  login(): void {
+    this.loginRestService
+      .login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
+      .toPromise()
+      .then((response: any) => {
+        localStorage.setItem('token', 'Bearer ' + response.access);
+        this.userService.getUserId().subscribe(response2 => {
+          localStorage.setItem('idUser', response2.id);
+          this.router.navigate(['profile/' + response2.id]);
+        });
     }).catch(response => {
-      alert('Login error');
-    });
-    // this.messageService.add({ severity: 'error', summary: 'Login error', detail: "Is the server on?" });
-  }
-
-  register() {
-    this.loginRestService.register(this.loginForm.controls.username.value, this.loginForm.controls.password.value).toPromise().then((response: any) => {
-      if (response.message == 'ok') {
-        alert('Register successful');
-      }
-      else {
-        alert('error');
-      }
+      this.toastService.toastNotification('Error', 'Login has failed', DialogLayoutDisplay.WARNING);
     });
   }
 
-
+  register(): void {
+    this.loginRestService.logout();
+    this.router.navigate(['register']);
+  }
 }

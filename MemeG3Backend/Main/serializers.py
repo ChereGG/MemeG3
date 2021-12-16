@@ -44,7 +44,6 @@ class PostSerializerGet(serializers.ModelSerializer):
 
 
 class PostSerializerUpload(serializers.ModelSerializer):
-
     class Meta:
         model = Post
         fields = (
@@ -73,20 +72,15 @@ class UserSerializer(serializers.ModelSerializer):
                   'image')
 
 
-class UserSerializerAdd(serializers.ModelSerializer):
-    #username = serializers.CharField(source='user.username')
-    #password = serializers.CharField(source='user.password')
+class CustomUserSerializerAdd(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ('username',
-                  'password')
-
-    def create(self, validated_data):
-        return User.objects.create(**validated_data)
+        model = CustomUser
+        fields = ('user',
+                  'descriere',
+                  'image')
 
 
 class UserSerializerUpload(forms.ModelForm):
-
     class Meta:
         model = CustomUser
         fields = ('id',

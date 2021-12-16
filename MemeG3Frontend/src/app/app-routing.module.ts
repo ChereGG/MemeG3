@@ -6,15 +6,16 @@ import { ProfilePageComponent } from './components/profile-page/profile-page.com
 import { AppComponent } from './app.component';
 import {FeedComponent} from './components/feed/feed.component';
 import {AddPostComponent} from './components/add-post/add-post.component';
-import {CommentsComponent} from "./components/comments/comments.component";
+import {CommentsComponent} from './components/comments/comments.component';
+import {RegisterComponent} from './components/register/register.component';
 
 const routes: Routes = [
   { path: 'profile/:userID', component: ProfilePageComponent },
   { path: 'login', component: LoginComponent },
-  { path: '', component: AppComponent },
-  {path: 'feed', component: FeedComponent},
-  {path: 'addPost', component: AddPostComponent},
-
+  { path: '', component: LoginComponent},
+  { path: 'feed', component: FeedComponent },
+  { path: 'addPost', component: AddPostComponent },
+  { path: 'register', component: RegisterComponent}
 ];
 
 @NgModule({

@@ -31,7 +31,7 @@ export class UserService {
   }
   changeDescription(data: any): Observable<any> {
       const token = localStorage.getItem('token');
-      return this.http.put(baseUrl + '/change-description', data,{
+      return this.http.put(baseUrl + '/change-description', data, {
       headers: {
         Authorization: token
       }
@@ -52,6 +52,7 @@ export class UserService {
       return EMPTY;
     }
   }
+
   getUserId(): Observable<any> {
     const token = localStorage.getItem('token');
     return this.http.get(baseUrl + '/get-user-id', {

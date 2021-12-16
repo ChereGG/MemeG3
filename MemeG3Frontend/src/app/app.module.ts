@@ -25,7 +25,13 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {CommentsComponent} from './components/comments/comments.component';
-
+import { RegisterComponent } from './components/register/register.component';
+import {
+  NgxAwesomePopupModule,
+  DialogConfigModule,
+  ConfirmBoxConfigModule,
+  ToastNotificationConfigModule
+} from '@costlydeveloper/ngx-awesome-popup';
 
 @NgModule({
   declarations: [
@@ -39,7 +45,8 @@ import {CommentsComponent} from './components/comments/comments.component';
     ImageDialogComponent,
     DescriptionDialogComponent,
     NavbarComponent,
-    CommentsComponent
+    CommentsComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
@@ -59,6 +66,10 @@ import {CommentsComponent} from './components/comments/comments.component';
     MatAutocompleteModule,
     MatTooltipModule,
     MatDialogModule,
+    NgxAwesomePopupModule.forRoot(),
+    DialogConfigModule.forRoot(),
+    ConfirmBoxConfigModule.forRoot(),
+    ToastNotificationConfigModule.forRoot()
   ],
   providers: [{provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
   bootstrap: [AppComponent],

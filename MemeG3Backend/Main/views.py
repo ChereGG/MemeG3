@@ -1,16 +1,9 @@
-from os import error
 from django.http import JsonResponse, QueryDict
-from django.http.response import Http404, HttpResponse
-from django.shortcuts import render
-from django.contrib.auth.hashers import make_password, check_password
-from django.contrib.auth.tokens import default_token_generator
 from rest_framework import status
-from datetime import datetime
 from rest_framework_simplejwt.backends import TokenBackend
 from rest_framework.decorators import api_view, authentication_classes, parser_classes, permission_classes
 from rest_framework.parsers import JSONParser, MultiPartParser
 
-from Main.models import Post, CustomUser
 from Main.serializers import *
 
 
@@ -28,12 +21,12 @@ def get_id(request):
 @api_view(['GET'])
 def feed_posts(request):
     user_id = get_id(request)
-    user = CustomUser.objects.get(id=user_id)
+    user = CustomUser.objects.get(user_id=user_id)
     if request.method == 'GET':
-        posts =reversed(Post.objects.all().order_by("date"))
+        posts = reversed(Post.objects.all().order_by("date"))
         followed_users = UserFollow.objects.filter(user1_id=user_id)
         posts = []
-        posts_copy=[]
+        posts_copy = []
         for followed_user in followed_users:
             posts.extend(Post.objects.filter(user_id=followed_user.user2_id))
         for post in posts:
@@ -52,7 +45,7 @@ def feed_posts(request):
 @api_view(['GET'])
 def get_user_by_id(request, userID):
     try:
-        user = CustomUser.objects.get(pk=userID)
+        user = CustomUser.objects.get(user_id=userID)
     except CustomUser.DoesNotExist:
         return JsonResponse({'message': 'The user does not exist'}, status=status.HTTP_404_NOT_FOUND)
     if request.method == 'GET':
@@ -79,8 +72,8 @@ def add_post(request):
 @api_view(['POST'])
 def add_comment(request):
     data = request.data
-    data['userName'] = CustomUser.objects.get(pk = get_id(request)).user.username
-    commentSerializer = CommentSerializer(data = data)
+    data['userName'] = CustomUser.objects.get(pk=get_id(request)).user.username
+    commentSerializer = CommentSerializer(data=data)
     if commentSerializer.is_valid():
         comment = commentSerializer.save()
         newComment = CommentSerializer(Comment.objects.get(pk=comment.id))
@@ -94,10 +87,10 @@ def add_comment(request):
 def profile_posts(request, user_id):
     if request.method == 'GET':
         data = request.data
-        user = CustomUser.objects.get(id=user_id)
+        user = CustomUser.objects.get(user_id=user_id)
         data['user'] = user_id
         posts = reversed(Post.objects.all().filter(user_id__exact=data['user']).order_by("date"))
-        posts_copy=[]
+        posts_copy = []
         for post in posts:
             try:
                 PostUserLike.objects.get(user=user, post=post)
@@ -112,18 +105,27 @@ def profile_posts(request, user_id):
 
 
 @api_view(['POST'])
-@parser_classes([JSONParser])
+# @parser_classes([JSONParser])
+@parser_classes([MultiPartParser])
 @permission_classes([])
 def add_user(request):
-    data = request.data
-    data['password'] = make_password(data['password'])
-    postSerializer = UserSerializerAdd(data=request.data)
-    if postSerializer.is_valid():
-        post = postSerializer.save()
+    print(request.data)
+    user = User.objects.create_user(
+        username=request.data.get('username'),
+        password=request.data.get('password'),
+        email=request.data.get('email')
+    )
+    customUserSerializer = CustomUserSerializerAdd(data={
+        'user': user.id,
+        'descriere': request.data.get('descriere'),
+        'image': request.data.get('image')
+    })
+    if customUserSerializer.is_valid():
+        customUser = customUserSerializer.save()
         return JsonResponse({'message': "ok"}, status=status.HTTP_200_OK)
     else:
-        print(postSerializer.errors)
-        return JsonResponse({'message': postSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+        print(customUserSerializer.errors)
+        return JsonResponse({'message': customUserSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 @api_view(['PUT'])
@@ -183,27 +185,29 @@ def get_user_id(request):
         user_id = get_id(request)
         return JsonResponse({'id': user_id}, status=status.HTTP_200_OK)
 
+
 @api_view(['PUT'])
 # @authentication_classes([TokenAuthentication, ])
 # @permission_classes([IsAuthenticated, ])
 def like_post(request, postID):
     if (request.method == 'PUT'):
-        userID=get_id(request)
-        user = CustomUser.objects.get(id=userID)
-        post = Post.objects.get(id=postID)
+        userID = get_id(request)
+        user = CustomUser.objects.get(user_id=userID)
+        post = Post.objects.get(user_id=postID)
         try:
             postUserLike = PostUserLike.objects.get(user=user, post=post)
-            #remove like pentru ca acel like pentru post exista
+            # remove like pentru ca acel like pentru post exista
             post.no_likes -= 1
             post.save()
             postUserLike.delete()
             return JsonResponse({'message': 'Disliked'}, status=status.HTTP_200_OK)
-        except Exception: #intra pe exceptie pentru ca likeul nu exista pt postul respectiv, deci se salveaza:
+        except Exception:  # intra pe exceptie pentru ca likeul nu exista pt postul respectiv, deci se salveaza:
             post.no_likes += 1
             post.save()
             postUserLike = PostUserLike.objects.create(post=post, user=user)
             postUserLike.save()
             return JsonResponse({'message': 'Liked'}, status=status.HTTP_200_OK)
+
 
 @api_view(['PUT'])
 def follow_user(request, followed_user_id):

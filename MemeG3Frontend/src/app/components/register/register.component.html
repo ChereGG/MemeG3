@@ -1,0 +1,46 @@
+<!-- <p>login works!</p> -->
+
+<body background-ima>
+<div id="loginContainer" *ngIf="loginForm" class="topMargin">
+  <div class="wrapper fadeInDown">
+    <h1>Register</h1>
+    <br>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" id="formContent">
+      <input type="text"
+             id="login"
+             class="fadeIn second"
+             formControlName="username"
+             name="login"
+             placeholder='username'>
+      <input type="password"
+             id="password"
+             class="fadeIn third "
+             formControlName="password"
+             name="login"
+             placeholder="password">
+      <input type="email"
+             id="email"
+             class="fadeIn fourth"
+             formControlName="email"
+             name="email"
+             placeholder="email">
+      <textarea type="text"
+                id="descriere"
+                class="fadeIn fifth"
+                formControlName="descriere"
+                name="descriere"
+                placeholder="descriere"></textarea>
+      <label>Profile picture</label>
+      <input class="button-34"
+             id="image"
+             type="file"
+             accept="image/*"
+             formControlName="image"
+             (change)="onFileChanged($event)">
+      <br>
+      <br>
+      <input type="submit" class="button-34" value="Register">
+    </form>
+  </div>
+</div>
+</body>
