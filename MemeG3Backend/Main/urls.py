@@ -8,6 +8,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 urlpatterns = [
     path('api/posts', views.feed_posts),
+    path('api/comments', views.add_comment),
     path('api/post', views.add_post),
     path('api/users/<int:userID>', views.get_user_by_id),
     path('api/users', views.add_user),

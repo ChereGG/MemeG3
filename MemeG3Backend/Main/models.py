@@ -18,3 +18,8 @@ class Post(models.Model):
     title = models.CharField(max_length=150, default="")
     description = models.CharField(max_length=400, default="")
     no_likes = models.IntegerField(default=0)
+
+class Comment(models.Model):
+    postId = models.ForeignKey(Post, on_delete=models.CASCADE)
+    text = models.CharField(max_length=150, default="")
+    userName = models.CharField(max_length=150, default="")

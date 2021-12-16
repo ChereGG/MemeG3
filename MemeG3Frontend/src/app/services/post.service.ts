@@ -49,6 +49,15 @@ export class PostService {
     });
   }
 
+  addComment(comment): Observable<any>{
+    const token = localStorage.getItem('token');
+    return this.http.post(baseUrl + '/comments', comment,{
+      headers: {
+        Authorization: token
+      }
+    });
+  }
+
 
 
 

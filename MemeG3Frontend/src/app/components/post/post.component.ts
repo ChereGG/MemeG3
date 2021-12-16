@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Post} from '../../models/Post.model';
 import {MemeDialogComponent} from '../meme-dialog/meme-dialog.component';
 import {NoopScrollStrategy} from '@angular/cdk/overlay';
@@ -13,6 +13,8 @@ import {Router} from "@angular/router";
 
 export class PostComponent implements OnInit {
   @Input() post?: Post = null;
+  @Output() commentsOpen = new EventEmitter<any>();
+
   constructor(private router: Router, private dialog: MatDialog) { }
   ngOnInit(): void {
   }

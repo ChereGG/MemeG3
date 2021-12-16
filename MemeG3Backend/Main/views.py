@@ -62,6 +62,20 @@ def add_post(request):
         return JsonResponse({'message': postSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
+@api_view(['POST'])
+def add_comment(request):
+    data = request.data
+    data['userName'] = CustomUser.objects.get(pk = get_id(request)).user.username
+    commentSerializer = CommentSerializer(data = data)
+    if commentSerializer.is_valid():
+        comment = commentSerializer.save()
+        newComment = CommentSerializer(Comment.objects.get(pk=comment.id))
+        return JsonResponse(newComment.data, status=status.HTTP_200_OK)
+    else:
+        print(commentSerializer.errors)
+        return JsonResponse({'message': commentSerializer.errors}, status=status.HTTP_400_BAD_REQUEST)
+
+
 @api_view(['GET'])
 def profile_posts(request, user_id):
     if request.method == 'GET':
