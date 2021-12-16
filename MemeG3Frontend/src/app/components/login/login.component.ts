@@ -34,8 +34,6 @@ export class LoginComponent implements OnInit {
       .login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
       .toPromise()
       .then((response: any) => {
-        // alert("orice")
-        // alert(response.access)
         localStorage.setItem('token', 'Bearer ' + response.access);
         this.userService.getUserId().subscribe(response2 => {
           localStorage.setItem('idUser', response2.id);
@@ -44,20 +42,10 @@ export class LoginComponent implements OnInit {
     }).catch(response => {
       alert('Login error');
     });
-    // this.messageService.add({ severity: 'error', summary: 'Login error', detail: "Is the server on?" });
   }
 
   register(): void {
-    this.loginRestService
-      .register(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
-      .toPromise()
-      .then((response: any) => {
-      if (response.message === 'ok') {
-        alert('Register successful');
-      }
-      else {
-        alert('error');
-      }
-    });
+    this.loginRestService.logout();
+    this.router.navigate(['register']);
   }
 }

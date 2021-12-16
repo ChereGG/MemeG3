@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
-      description: ['', [Validators.required]],
+      descriere: ['', [Validators.required]],
       image: [null, [Validators.required]]
     });
   }
@@ -50,22 +50,41 @@ export class RegisterComponent implements OnInit {
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.isSubmitted = true;
-      this.toastService.toastNotification(
-        'Success',
-        'Successfully created a profile',
-        DialogLayoutDisplay.SUCCESS);
       this.loginRestService
         .register(
           this.loginForm.controls.username.value,
-          this.loginForm.controls.password.value
+          this.loginForm.controls.password.value,
+          this.loginForm.controls.email.value,
+          this.loginForm.controls.descriere.value,
+          this.selectedFile
         )
         .toPromise()
         .then((response: any) => {
           if (response.message === 'ok') {
-            alert('Register successful');
+            this.toastService.toastNotification(
+              'Success',
+              'Successfully created a profile',
+              DialogLayoutDisplay.SUCCESS
+            );
+            this.loginRestService
+              .login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
+              .toPromise()
+              .then((loginResponse: any) => {
+                localStorage.setItem('token', 'Bearer ' + loginResponse.access);
+                this.userService.getUserId().subscribe(getUserResponse => {
+                  localStorage.setItem('idUser', getUserResponse.id);
+                  this.router.navigate(['profile/' + getUserResponse.id]);
+                });
+              }).catch(() => {
+                alert('Login error');
+              });
           }
           else {
-            alert('error');
+            this.toastService.toastNotification(
+              'Error',
+              'Error while creating profile',
+              DialogLayoutDisplay.WARNING
+            );
           }
         });
     } else {

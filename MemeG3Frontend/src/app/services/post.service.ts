@@ -27,7 +27,6 @@ export class PostService {
     const token = localStorage.getItem('token');
     const formData = new FormData();
     formData.append('image', image, image.name);
-    console.log(JSON.stringify(formData));
     formData.append('description', post.description);
     formData.append('title', post.title);
     formData.append('date', new Date().toISOString());
@@ -62,7 +61,7 @@ export class PostService {
 
   addComment(comment): Observable<any>{
     const token = localStorage.getItem('token');
-    return this.http.post(baseUrl + '/comments', comment,{
+    return this.http.post(baseUrl + '/comments', comment, {
       headers: {
         Authorization: token
       }

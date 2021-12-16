@@ -5,6 +5,7 @@ import {User} from '../../models/User.model';
 import {Observable} from 'rxjs';
 import {debounceTime, finalize, map, startWith, switchMap, tap} from 'rxjs/operators';
 import {UserService} from '../../services/user.service';
+import {LoginRestService} from '../../services/login-rest.service';
 
 @Component({
   selector: 'app-navbar',
@@ -13,7 +14,11 @@ import {UserService} from '../../services/user.service';
 })
 export class NavbarComponent implements OnInit {
   id = localStorage.getItem('idUser');
-  constructor(private router: Router, private userService: UserService) { }
+
+  constructor(private router: Router,
+              private userService: UserService,
+              private loginRestService: LoginRestService) { }
+
   myControl = new FormControl();
   searchName: '';
   isLoading = false;
@@ -56,4 +61,7 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['profile/' + userID]));
   }
 
+  logout(): void {
+    this.router.navigate(['login']);
+  }
 }

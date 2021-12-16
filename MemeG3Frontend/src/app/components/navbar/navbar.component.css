@@ -15,8 +15,14 @@
   padding-left: 5%;
   padding-top: 6%;
   color: whitesmoke;
-
 }
+
+.logout_button{
+  padding-left: 5%;
+  padding-top: 6%;
+  color: whitesmoke;
+}
+
 .home-btn{
   background-color:  #191a1d;
   border: none;

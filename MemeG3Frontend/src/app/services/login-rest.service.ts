@@ -12,28 +12,24 @@ export class LoginRestService {
     const formData: any = new FormData();
     formData.append('username', username);
     formData.append('password', password);
-    // const options = {
-    //   form
-    //   headers: {
-    //     'Access-Control-Allow-Origin': '*',
-    //   }
-    // };
     return this.http.post('http://127.0.0.1:8080/token', formData);
-    // alert('login. username: ' + username + ' password: ' + password);
   }
 
-  register(username: any, password: any): Observable<any>{
-    const options = {
-      headers: {
-      //   'Access-Control-Allow-Origin': '*',
-        'Content-Type': 'application/json'
+  register(username: string, password: string, email: string, description: string, image: File): Observable<any>{
+    const formData = new FormData();
+    formData.append('username', username);
+    formData.append('password', password);
+    formData.append('email', email);
+    formData.append('descriere', description);
+    formData.append('image', image, image.name);
+    return this.http.post('http://127.0.0.1:8080/api/users',
+      formData, {
+        headers: {}
       }
-    };
-    const body = JSON.stringify({
-      username,
-      password,
-    });
-    return this.http.post('http://127.0.0.1:8080/api/users', body, options);
-    // alert('register. username: ' + username + ' password: ' + password);
+    );
+  }
+
+  logout(): void {
+    localStorage.clear();
   }
 }
