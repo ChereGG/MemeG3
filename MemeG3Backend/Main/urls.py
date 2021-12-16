@@ -1,5 +1,7 @@
 from django.conf.urls.static import static
 from django.urls import path
+from rest_framework.decorators import authentication_classes, permission_classes
+from rest_framework.permissions import AllowAny
 
 from Main import views
 from MemeG3 import settings
