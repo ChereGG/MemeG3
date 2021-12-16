@@ -13,8 +13,13 @@ class CustomUser(models.Model):
 
 class Post(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False, default=-1)
-    date = models.DateField()
+    date = models.DateTimeField()
     image = models.ImageField(null=False)
     title = models.CharField(max_length=150, default="")
     description = models.CharField(max_length=400, default="")
     no_likes = models.IntegerField(default=0)
+
+
+class PostUserLike(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, null=False)
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False)

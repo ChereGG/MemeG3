@@ -3,7 +3,7 @@
         <header class="user">
             <img src="{{this.getImagePath(this.post.profile_pic)}}" alt="">
             <div class="user-info">
-                <h2 class="user-info-name" (click)="navigateToUserProfile(this.post.user_id)">{{this.post.first_name+" "+this.post.last_name}} </h2>
+                <h2 class="user-info-name">{{this.post.first_name+" "+this.post.last_name}}</h2>
                 <p class="user-info-time">{{this.post.date}}</p>
             </div>
         </header>
@@ -12,12 +12,12 @@
             <div style="display:flex;justify-content: center; width: 100%"><img class="meme-image" src="{{this.getImagePath(this.post.image)}}"></div>
         </main>
         <section>
-<!--            <div class="users-avatars">-->
-<!--                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=334&q=80" alt="">-->
-<!--                <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=80" alt="">-->
-<!--                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80" alt="">-->
-<!--            </div>-->
-            <p>{{this.post.no_likes}} Likes</p>
+          <button mat-icon-button class="mat-button" (click)=(this.likePost())>
+<!--            <mat-icon id="{{'like-button'+post.id}}"> favorite_outline </mat-icon>-->
+            <mat-icon *ngIf="post.is_liked_by_user"> favorite </mat-icon>
+            <mat-icon *ngIf="!post.is_liked_by_user"> favorite_outline </mat-icon>
+            {{this.post.no_likes}}
+          </button>
             <p class="comment">10 comment</p>
         </section>
     </div>
