@@ -36,7 +36,8 @@ class PostSerializerGet(serializers.ModelSerializer):
             "title",
             "description",
             "no_likes",
-            "comments"
+            "comments",
+            "is_liked_by_user",
         )
 
 

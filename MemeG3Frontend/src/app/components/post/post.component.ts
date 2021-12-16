@@ -50,7 +50,7 @@ export class PostComponent implements OnInit {
     };
 
     this.postService.likePost(data, this.post.id).subscribe(response => {
-      console.log(response)
+      console.log(response);
       if (response.message === 'Liked'){
           this.post.no_likes += 1;
           this.post.is_liked_by_user = true;

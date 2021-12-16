@@ -31,7 +31,6 @@ export class UserService {
   }
   changeDescription(data: any): Observable<any> {
       const token = localStorage.getItem('token');
-      alert(token);
       return this.http.put(baseUrl + '/change-description', data,{
       headers: {
         Authorization: token

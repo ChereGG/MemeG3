@@ -438,10 +438,16 @@
 }
 
 .follow {
-  float: left;
+float: right;
 }
 
 .button-div {
   display: inline-flex;
-  height:100%
+  height:100%;
+}
+
+.add-meme-container{
+  position: fixed;
+  top: 90px;
+  left: 30px;
 }

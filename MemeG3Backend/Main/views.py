@@ -31,19 +31,21 @@ def feed_posts(request):
     user = CustomUser.objects.get(id=user_id)
     if request.method == 'GET':
         posts =reversed(Post.objects.all().order_by("date"))
-        # for post in posts:
-        #     try:
-        #         PostUserLike.objects.get(user=user, post=post)
-        #         post.is_liked_by_user = True
-        #     except Exception:
-        #         post.is_liked_by_user = False
-        # for post in posts:
-        #     print(post)
         followed_users = UserFollow.objects.filter(user1_id=user_id)
         posts = []
+        posts_copy=[]
         for followed_user in followed_users:
             posts.extend(Post.objects.filter(user_id=followed_user.user2_id))
-        post_serializer = PostSerializerGet(posts, many=True)
+        for post in posts:
+            try:
+                PostUserLike.objects.get(user=user, post=post)
+                post.is_liked_by_user = True
+                posts_copy.append(post)
+            except Exception:
+                post.is_liked_by_user = False
+                posts_copy.append(post)
+
+        post_serializer = PostSerializerGet(posts_copy, many=True)
         return JsonResponse(post_serializer.data, safe=False)
 
 
@@ -61,6 +63,7 @@ def get_user_by_id(request, userID):
 @api_view(['POST'])
 @parser_classes([MultiPartParser])
 def add_post(request):
+    print(".....................")
     data = request.data
     data['user'] = get_id(request)
     postSerializer = PostSerializerUpload(data=request.data)
@@ -91,9 +94,20 @@ def add_comment(request):
 def profile_posts(request, user_id):
     if request.method == 'GET':
         data = request.data
+        user = CustomUser.objects.get(id=user_id)
         data['user'] = user_id
         posts = reversed(Post.objects.all().filter(user_id__exact=data['user']).order_by("date"))
-        post_serializer = PostSerializerGet(posts, many=True)
+        posts_copy=[]
+        for post in posts:
+            try:
+                PostUserLike.objects.get(user=user, post=post)
+                post.is_liked_by_user = True
+                posts_copy.append(post)
+            except Exception:
+                post.is_liked_by_user = False
+                posts_copy.append(post)
+
+        post_serializer = PostSerializerGet(posts_copy, many=True)
         return JsonResponse(post_serializer.data, safe=False)
 
 

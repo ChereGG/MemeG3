@@ -3,8 +3,8 @@
         <header class="user">
             <img src="{{this.getImagePath(this.post.profile_pic)}}" alt="">
             <div class="user-info">
-                <h2 class="user-info-name">{{this.post.first_name+" "+this.post.last_name}}</h2>
-                <p class="user-info-time">{{this.post.date}}</p>
+                <h2 class="user-info-name" (click)="navigateToUserProfile(this.post.user_id)">{{this.post.first_name+" "+this.post.last_name}}</h2>
+                <p class="user-info-time">{{this.post.date.slice(0,10)}}</p>
             </div>
         </header>
         <main>

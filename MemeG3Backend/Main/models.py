@@ -18,6 +18,7 @@ class Post(models.Model):
     title = models.CharField(max_length=150, default="")
     description = models.CharField(max_length=400, default="")
     no_likes = models.IntegerField(default=0)
+    is_liked_by_user = False
 
 class PostUserLike(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE, null=False)

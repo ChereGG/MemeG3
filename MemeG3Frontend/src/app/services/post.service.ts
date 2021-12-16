@@ -29,10 +29,9 @@ export class PostService {
     formData.append('image', image, image.name);
     formData.append('description', post.description);
     formData.append('title', post.title);
-    formData.append('date', new Date().toISOString().slice(0, 10));
+    formData.append('date', new Date().toISOString());
     formData.append('no_likes', '0');
 
-    console.log(baseUrl);
     return this.http.post(baseUrl + '/post', formData, {
       headers: {
         Authorization: token
@@ -58,6 +57,8 @@ export class PostService {
           Authorization: token
         }
       });
+  }
+
   addComment(comment): Observable<any>{
     const token = localStorage.getItem('token');
     return this.http.post(baseUrl + '/comments', comment,{
