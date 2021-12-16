@@ -27,6 +27,8 @@ export class RegisterComponent implements OnInit {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
+      first_name: ['', [Validators.required]],
+      last_name: ['', [Validators.required]],
       email: ['', [Validators.required, Validators.email]],
       descriere: ['', [Validators.required]],
       image: [null, [Validators.required]]
@@ -54,6 +56,8 @@ export class RegisterComponent implements OnInit {
         .register(
           this.loginForm.controls.username.value,
           this.loginForm.controls.password.value,
+          this.loginForm.controls.first_name.value,
+          this.loginForm.controls.last_name.value,
           this.loginForm.controls.email.value,
           this.loginForm.controls.descriere.value,
           this.selectedFile

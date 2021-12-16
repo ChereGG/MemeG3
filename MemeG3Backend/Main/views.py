@@ -113,6 +113,8 @@ def add_user(request):
     user = User.objects.create_user(
         username=request.data.get('username'),
         password=request.data.get('password'),
+        last_name=request.data.get('last_name'),
+        first_name=request.data.get('first_name'),
         email=request.data.get('email')
     )
     customUserSerializer = CustomUserSerializerAdd(data={
@@ -159,21 +161,26 @@ def change_description(request):
 # @authentication_classes([TokenAuthentication, ])
 # @permission_classes([IsAuthenticated, ])
 def search_users(request, name):
-    splitted_name = name.split(' ')
-    if (len(splitted_name) == 1):
+    split_name = name.split(' ')
+    if len(split_name) == 1:
         list1 = CustomUser.objects.filter(
-            user__first_name__contains=splitted_name[0])
+            user__first_name__contains=split_name[0]
+        )
         list2 = CustomUser.objects.filter(
-            user__last_name__contains=splitted_name[0])
-        combined_list = list1 | list2
+            user__last_name__contains=split_name[0]
+        )
+        list3 = CustomUser.objects.filter(
+            user__username__contains=split_name[0]
+        ) 
+        combined_list = list1 | list2 | list3
         userSerializer = UserSerializer(combined_list, many=True)
         return JsonResponse(userSerializer.data, safe=False, status=status.HTTP_200_OK)
 
-    if (len(splitted_name) == 2):
-        list1 = CustomUser.objects.filter(user__first_name__contains=splitted_name[0]).filter(
-            user__last_name__contains=splitted_name[1])
-        list2 = CustomUser.objects.filter(user__first_name__contains=splitted_name[1]).filter(
-            user__last_name__contains=splitted_name[0])
+    if len(split_name) == 2:
+        list1 = CustomUser.objects.filter(user__first_name__contains=split_name[0]).filter(
+            user__last_name__contains=split_name[1])
+        list2 = CustomUser.objects.filter(user__first_name__contains=split_name[1]).filter(
+            user__last_name__contains=split_name[0])
         combined_list = list1 | list2
         userSerializer = UserSerializer(combined_list, many=True)
         return JsonResponse(userSerializer.data, safe=False, status=status.HTTP_200_OK)
@@ -193,7 +200,7 @@ def like_post(request, postID):
     if (request.method == 'PUT'):
         userID = get_id(request)
         user = CustomUser.objects.get(user_id=userID)
-        post = Post.objects.get(user_id=postID)
+        post = Post.objects.get(id=postID)
         try:
             postUserLike = PostUserLike.objects.get(user=user, post=post)
             # remove like pentru ca acel like pentru post exista
