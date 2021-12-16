@@ -93,6 +93,11 @@ class UserSerializerUpload(forms.ModelForm):
                   'image',
                   'user')
 
+class PostUserLikeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PostUserLike
+        fields = ('post',
+                  'user')
 
 class UserFollowSerializer(serializers.ModelSerializer):
     class Meta:

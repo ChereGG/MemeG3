@@ -28,8 +28,17 @@ def get_id(request):
 @api_view(['GET'])
 def feed_posts(request):
     user_id = get_id(request)
-    print('user_id', user_id)
+    user = CustomUser.objects.get(id=user_id)
     if request.method == 'GET':
+        posts =reversed(Post.objects.all().order_by("date"))
+        # for post in posts:
+        #     try:
+        #         PostUserLike.objects.get(user=user, post=post)
+        #         post.is_liked_by_user = True
+        #     except Exception:
+        #         post.is_liked_by_user = False
+        # for post in posts:
+        #     print(post)
         followed_users = UserFollow.objects.filter(user1_id=user_id)
         posts = []
         for followed_user in followed_users:
@@ -83,9 +92,7 @@ def profile_posts(request, user_id):
     if request.method == 'GET':
         data = request.data
         data['user'] = user_id
-        posts = Post.objects.all().filter(user_id__exact=data['user'])
-        print("\n")
-        posts = reversed(posts)
+        posts = reversed(Post.objects.all().filter(user_id__exact=data['user']).order_by("date"))
         post_serializer = PostSerializerGet(posts, many=True)
         return JsonResponse(post_serializer.data, safe=False)
 
@@ -162,6 +169,27 @@ def get_user_id(request):
         user_id = get_id(request)
         return JsonResponse({'id': user_id}, status=status.HTTP_200_OK)
 
+@api_view(['PUT'])
+# @authentication_classes([TokenAuthentication, ])
+# @permission_classes([IsAuthenticated, ])
+def like_post(request, postID):
+    if (request.method == 'PUT'):
+        userID=get_id(request)
+        user = CustomUser.objects.get(id=userID)
+        post = Post.objects.get(id=postID)
+        try:
+            postUserLike = PostUserLike.objects.get(user=user, post=post)
+            #remove like pentru ca acel like pentru post exista
+            post.no_likes -= 1
+            post.save()
+            postUserLike.delete()
+            return JsonResponse({'message': 'Disliked'}, status=status.HTTP_200_OK)
+        except Exception: #intra pe exceptie pentru ca likeul nu exista pt postul respectiv, deci se salveaza:
+            post.no_likes += 1
+            post.save()
+            postUserLike = PostUserLike.objects.create(post=post, user=user)
+            postUserLike.save()
+            return JsonResponse({'message': 'Liked'}, status=status.HTTP_200_OK)
 
 @api_view(['PUT'])
 def follow_user(request, followed_user_id):

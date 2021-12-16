@@ -4,6 +4,7 @@ import {MemeDialogComponent} from '../meme-dialog/meme-dialog.component';
 import {NoopScrollStrategy} from '@angular/cdk/overlay';
 import {MatDialog} from '@angular/material/dialog';
 import {Router} from "@angular/router";
+import {PostService} from "../../services/post.service";
 
 @Component({
   selector: 'app-post',
@@ -13,9 +14,12 @@ import {Router} from "@angular/router";
 
 export class PostComponent implements OnInit {
   @Input() post?: Post = null;
+  constructor(private router: Router, private dialog: MatDialog,private postService:PostService) {
+    // this.post.is_liked_by_user = false;
+  }
+
   @Output() commentsOpen = new EventEmitter<any>();
 
-  constructor(private router: Router, private dialog: MatDialog) { }
   ngOnInit(): void {
   }
 
@@ -38,5 +42,23 @@ export class PostComponent implements OnInit {
   navigateToUserProfile(userID: string): void{
     this.router.navigateByUrl('/', {skipLocationChange: true}).then(() =>
     this.router.navigate(['profile/' + userID]));
+  }
+
+  likePost(): void{
+
+    const data = {
+    };
+
+    this.postService.likePost(data, this.post.id).subscribe(response => {
+      console.log(response)
+      if (response.message === 'Liked'){
+          this.post.no_likes += 1;
+          this.post.is_liked_by_user = true;
+        }
+        else if (response.message === 'Disliked'){
+          this.post.no_likes -= 1;
+          this.post.is_liked_by_user = false;
+        }
+    });
   }
 }

@@ -91,3 +91,6 @@
    cursor: pointer;
  }
 
+.mat-button {
+  color: red;
+}

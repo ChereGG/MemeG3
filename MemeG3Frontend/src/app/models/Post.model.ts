@@ -7,10 +7,11 @@ export class Post {
   title?: string;
   description?: string;
   date?: string;
-  no_likes?: bigint;
+  no_likes?: number;
   username?: string;
   first_name?: string;
   last_name?: string;
   profile_pic?: string;
+  is_liked_by_user: boolean;
   comments?: any;
 }

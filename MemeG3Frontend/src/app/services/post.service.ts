@@ -49,6 +49,15 @@ export class PostService {
     });
   }
 
+  likePost(data: any, postID: any): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    return this.http.put('http://localhost:8080/api/posts/' + postID.toString() + '/like-post', data,
+      {
+        headers: {
+          Authorization: token
+        }
+      });
   addComment(comment): Observable<any>{
     const token = localStorage.getItem('token');
     return this.http.post(baseUrl + '/comments', comment,{
