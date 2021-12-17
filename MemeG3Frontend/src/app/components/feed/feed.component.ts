@@ -21,10 +21,6 @@ export class FeedComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  addedMeme(newPost: any): void{
-    this.list.push(newPost);
-  }
-
   showComment(postId){
     const x = this.currentOpenComments.indexOf(postId);
 

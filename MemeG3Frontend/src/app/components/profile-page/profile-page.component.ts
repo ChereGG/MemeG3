@@ -100,4 +100,8 @@ export class ProfilePageComponent implements OnInit {
     });
     window.location.reload();
   }
+
+  addedMeme(newPost: any): void{
+    this.posts.push(newPost);
+  }
 }

@@ -34,6 +34,9 @@
       </app-post>
     </div>
   </div>
+  <div class="add-meme-container" *ngIf="this.route.snapshot.params.userID==this.id">
+    <app-add-post (memePosted)="addedMeme($event)"></app-add-post>
+  </div>
 </div>
 
 
