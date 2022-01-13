@@ -1,0 +1,10 @@
+<div class="container">
+  <div>
+    <img src="http://localhost:8080{{data.image}}" alt="" #img>
+  </div>
+
+  <button class="download-button" (click)="downloadImage(img)" mat-mini-fab
+    matTooltip="Download" matTooltipPosition='below'>
+      <mat-icon>vertical_align_bottom</mat-icon>
+    </button>
+</div>

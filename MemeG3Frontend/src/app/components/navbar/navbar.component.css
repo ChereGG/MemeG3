@@ -1,0 +1,82 @@
+.example_spacer {
+  flex: 1 1 auto;
+}
+
+.account_icon{
+  transform: scale(1.5);
+  color: whitesmoke;
+}
+.home_icon{
+  transform: scale(1.2);
+  color: whitesmoke;
+}
+.span_home_button{
+  font-size: 130%;
+  padding-left: 5%;
+  padding-top: 6%;
+  color: whitesmoke;
+}
+
+.logout_button{
+  padding-left: 5%;
+  padding-top: 6%;
+  color: whitesmoke;
+}
+
+.home-btn{
+  background-color:  #191a1d;
+  border: none;
+  display: flex;
+  cursor:pointer;
+
+}
+.profile_btn{
+  background-color:  #191a1d;
+}
+
+mat-toolbar {
+  display:flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #191a1d;
+  min-height: 10%;position: fixed;
+  z-index: 100;
+  width: 100%  !important
+
+}
+
+.search_icon,input{
+  color:whitesmoke;
+}
+mat-form-field{
+  width: 20rem;
+  border-bottom: solid;
+  border-bottom-color: whitesmoke;
+  opacity: 1;
+}
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: whitesmoke;
+  opacity: 1; /* Firefox */
+
+}
+
+
+.user {
+	 display: flex;
+	 gap: 12px;
+}
+
+.user-info-name {
+	 letter-spacing: 0.4px;
+	 font-size: 12px;
+	 font-weight: 500;
+	 color: #070707;
+}
+
+ .user img {
+	 height: 40px;
+	 width: 40px;
+	 border-radius: 50%;
+	 object-fit: cover;
+   line-height: 0;
+}

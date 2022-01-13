@@ -1,0 +1,16 @@
+<app-navbar></app-navbar>
+<div class="feed-page-container" style="height: auto">
+  <div  class="feed-posts-container" *ngFor="let post of this.list index as i">
+    <div style="display: contents" class="post-container">
+      <app-post [post]="post" (commentsOpen)="showComment($event)"></app-post>
+      <app-comments *ngIf = "currentOpenComments.indexOf(post.id) >= 0"
+                    [comments] = "post.comments"
+                    [post]="post"
+                    (addComment) = addCommentToPost($event)
+      ></app-comments>
+    </div>
+  </div>
+</div>
+<div style="height: 100px; width: 100px"></div>
+
+

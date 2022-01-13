@@ -1,0 +1,19 @@
+<!-- <p>login works!</p> -->
+
+<body background-ima>
+    <div id="loginContainer" *ngIf="loginForm" class="topMargin">
+        <div class="wrapper fadeInDown">
+            <h1>Log in</h1>
+            <br>
+            <div [formGroup]="loginForm" id="formContent">
+                <!-- Login Form -->
+                <input type="text" id="login" class="fadeIn second" formControlName="username" name="login" placeholder='username'>
+                <input type="password" id="password " class="fadeIn third " formControlName="password" name="login" placeholder="password">
+                <br>
+                <button class="button-34" role="button" (click)="login()">Log in</button>
+                <br> <br>
+                <button class="button-34" role="button" (click)="register()">Register</button>
+            </div>
+        </div>
+    </div>
+</body>
