@@ -8,6 +8,9 @@ import { Observable } from 'rxjs';
 export class LoginRestService {
   constructor(private http: HttpClient) { }
 
+  /**
+  * based on a username and a password, retrieves a token from the server
+  */
   login(username: any, password: any): Observable<any> {
     const formData: any = new FormData();
     formData.append('username', username);
@@ -15,6 +18,9 @@ export class LoginRestService {
     return this.http.post('http://127.0.0.1:8080/token', formData);
   }
 
+  /**
+  * Creates a new user on the server
+  */
   register(username: string, password: string, firstName: string, lastName: string,
            email: string, description: string, image: File): Observable<any>{
     const formData = new FormData();
@@ -32,6 +38,9 @@ export class LoginRestService {
     );
   }
 
+  /**
+  * Removes the user token from localstorage
+  */
   logout(): void {
     localStorage.clear();
   }
