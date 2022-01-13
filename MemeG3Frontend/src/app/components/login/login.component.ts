@@ -26,6 +26,9 @@ export class LoginComponent implements OnInit {
     // ,private messageService: MessageService,
   ) { }
 
+  /**
+  * Creates the form group for the username and password
+  */
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       username: [''],
@@ -33,6 +36,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  /**
+  * Retrieves the values inputted in the username and passwords fields and performs a login request, saving the user token in localstorage
+  * On success, navigates to the user profile
+  */
   login(): void {
     this.loginRestService
       .login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
@@ -48,6 +55,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
+  /**
+  * Logouts the current user and navigates to the register page
+  */
   register(): void {
     this.loginRestService.logout();
     this.router.navigate(['register']);
