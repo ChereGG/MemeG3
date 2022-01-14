@@ -56,6 +56,11 @@ def get_user_by_id(request, userID):
 @api_view(['POST'])
 @parser_classes([MultiPartParser])
 def add_post(request):
+    """
+    Method used to add a post / meme
+    Receives data from frontend and validates it
+    If the method is successful returns a Json response OK, else it returns a Json BAD_REQUEST response
+    """
     print(".....................")
     data = request.data
     data['user'] = get_id(request)
@@ -71,6 +76,11 @@ def add_post(request):
 
 @api_view(['POST'])
 def add_comment(request):
+    """
+    Method used to add a comment to a post
+    Receives a comment from frontend and validates it
+    If the method is successful returns a Json response OK, else it returns a Json BAD_REQUEST response
+    """
     data = request.data
     data['userName'] = CustomUser.objects.get(pk=get_id(request)).user.username
     commentSerializer = CommentSerializer(data=data)

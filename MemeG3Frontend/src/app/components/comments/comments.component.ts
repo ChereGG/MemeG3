@@ -13,6 +13,10 @@ import {error} from "protractor";
 })
 export class CommentsComponent implements OnInit {
 
+  /**
+   * Class used to add a comment
+   */
+
   form;
   @Input() post?: Post;
   @Input() comments?: Array<Comment> = null;
@@ -26,6 +30,9 @@ export class CommentsComponent implements OnInit {
   }
 
 
+  /**
+   * Method that gets the data from the text field and sends the comment to the backend
+   */
   saveComment(): void
   {
     const text = this.form.controls.text.value;
