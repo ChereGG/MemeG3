@@ -1,3 +1,6 @@
+/**
+* Class describing the user attributes
+*/
 export class User {
   id?: bigint;
   username?: string;

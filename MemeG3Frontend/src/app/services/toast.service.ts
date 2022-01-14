@@ -10,6 +10,9 @@ import {
 export class ToastService {
   constructor() { }
 
+  /**
+  * Creates and shows a notification with a specific title and message
+  */
   toastNotification(title: string,
                     message: string,
                     toastLayout: DialogLayoutDisplay): void {

@@ -8,6 +8,9 @@ from Main.serializers import *
 
 
 def get_id(request):
+    """
+    Retrieves the id from a token
+    """
     try:
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         valid_data = TokenBackend(
@@ -20,6 +23,9 @@ def get_id(request):
 
 @api_view(['GET'])
 def feed_posts(request):
+    """
+    Retrieves all the posts posted by the users the current user follows
+    """
     user_id = get_id(request)
     user = CustomUser.objects.get(user_id=user_id)
     if request.method == 'GET':
@@ -44,6 +50,9 @@ def feed_posts(request):
 
 @api_view(['GET'])
 def get_user_by_id(request, userID):
+    """
+    Retrieves the user object having a given id
+    """
     try:
         user = CustomUser.objects.get(user_id=userID)
     except CustomUser.DoesNotExist:
@@ -95,6 +104,9 @@ def add_comment(request):
 
 @api_view(['GET'])
 def profile_posts(request, user_id):
+    """
+    Retrieves all the posts posted by the user with the given id
+    """
     if request.method == 'GET':
         data = request.data
         user = CustomUser.objects.get(user_id=user_id)
@@ -119,6 +131,9 @@ def profile_posts(request, user_id):
 @parser_classes([MultiPartParser])
 @permission_classes([])
 def add_user(request):
+    """
+    Registers a new user. No token is necessary to call this endpoint
+    """
     print(request.data)
     user = User.objects.create_user(
         username=request.data.get('username'),
@@ -142,6 +157,9 @@ def add_user(request):
 
 @api_view(['PUT'])
 def change_picture(request):
+    """
+    Updates the current user (from token) with the new profile picture(from request body)
+    """
     if request.method == 'PUT':
         id_user = get_id(request)
         user = CustomUser.objects.get(user_id=id_user)
@@ -159,6 +177,9 @@ def change_picture(request):
 
 @api_view(['PUT'])
 def change_description(request):
+    """
+        Updates the current user (from token) with the new description picture(from request body)
+    """
     if request.method == 'PUT':
         id_user = get_id(request)
         user = CustomUser.objects.get(user_id=id_user)
@@ -171,6 +192,9 @@ def change_description(request):
 # @authentication_classes([TokenAuthentication, ])
 # @permission_classes([IsAuthenticated, ])
 def search_users(request, name):
+    """
+       Retrieves all the users from the database whose names match the name parameter
+    """
     split_name = name.split(' ')
     if len(split_name) == 1:
         list1 = CustomUser.objects.filter(
@@ -198,6 +222,9 @@ def search_users(request, name):
 
 @api_view(['GET'])
 def get_user_id(request):
+    """
+       Retrieves the id of the current user (request)
+       """
     if request.method == 'GET':
         user_id = get_id(request)
         return JsonResponse({'id': user_id}, status=status.HTTP_200_OK)
@@ -207,6 +234,9 @@ def get_user_id(request):
 # @authentication_classes([TokenAuthentication, ])
 # @permission_classes([IsAuthenticated, ])
 def like_post(request, postID):
+    """
+       Updates the post with postID identifier adding a like to its counter
+    """
     if (request.method == 'PUT'):
         userID = get_id(request)
         user = CustomUser.objects.get(user_id=userID)
@@ -228,6 +258,10 @@ def like_post(request, postID):
 
 @api_view(['PUT'])
 def follow_user(request, followed_user_id):
+    """
+       Adds a UserFollow object to the database between the current user(token) and the user having
+       the 'follow_user_id' identifier
+    """
     if request.method == 'PUT':
         user_id = get_id(request)
         follow = UserFollow.objects.create(user1_id=user_id, user2_id=followed_user_id)
@@ -238,6 +272,10 @@ def follow_user(request, followed_user_id):
 
 @api_view(['PUT'])
 def unfollow_user(request, unfollowed_user_id):
+    """
+       Deletes the UserFollow object between the current user(token) and the user having
+       the 'follow_user_id' identifier from the database
+    """
     if request.method == 'PUT':
         user_id = get_id(request)
         follow = UserFollow.objects.get(user1_id=user_id, user2_id=unfollowed_user_id)
@@ -251,6 +289,10 @@ def unfollow_user(request, unfollowed_user_id):
 
 @api_view(['GET'])
 def is_follow(request, user_id):
+    """
+    Returns 1 = True if there exists an UserFollow object between the current user(token) and the user having
+       the 'follow_user_id' identifier in the database or 0=False otherwise
+    """
     if request.method == 'GET':
         my_id = get_id(request)
         try:
