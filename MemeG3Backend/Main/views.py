@@ -8,6 +8,9 @@ from Main.serializers import *
 
 
 def get_id(request):
+    """
+    Retrieves the id from a token
+    """
     try:
         token = request.META.get('HTTP_AUTHORIZATION', " ").split(' ')[1]
         valid_data = TokenBackend(
@@ -109,6 +112,9 @@ def profile_posts(request, user_id):
 @parser_classes([MultiPartParser])
 @permission_classes([])
 def add_user(request):
+    """
+    Registers a new user. No token is necessary to call this endpoint
+    """
     print(request.data)
     user = User.objects.create_user(
         username=request.data.get('username'),
