@@ -25,6 +25,10 @@ class PostUserLike(models.Model):
     user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, null=False)
 
 class Comment(models.Model):
+    """
+    Comment class - used for commenting one post
+    Uses the postId, the username of the user that comments and the text of the comment
+    """
     postId = models.ForeignKey(Post, on_delete=models.CASCADE)
     text = models.CharField(max_length=150, default="")
     userName = models.CharField(max_length=150, default="")

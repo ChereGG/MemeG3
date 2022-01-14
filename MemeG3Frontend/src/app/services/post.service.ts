@@ -23,6 +23,12 @@ export class PostService {
     });
   }
 
+  /**
+   * Method that sends a post's data to the backend
+   * @param post - the post data from the form
+   * @param image - the uploaded image
+   * @returns Server response
+   */
   addPost(post: PostUpload, image: File): Observable<any>{
     const token = localStorage.getItem('token');
     const formData = new FormData();
@@ -59,6 +65,11 @@ export class PostService {
       });
   }
 
+  /**
+   * Method that sends the comment to the backend
+   * @param comment - the comment that has been written
+   * @returns Server response
+   */
   addComment(comment): Observable<any>{
     const token = localStorage.getItem('token');
     return this.http.post(baseUrl + '/comments', comment, {

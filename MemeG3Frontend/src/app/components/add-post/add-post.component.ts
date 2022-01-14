@@ -13,6 +13,9 @@ import {DialogLayoutDisplay} from '@costlydeveloper/ngx-awesome-popup';
 })
 
 export class AddPostComponent implements OnInit {
+  /**
+   * Class used to add a post
+   */
   selectedFile: File;
   postForm;
   shortcuts;
@@ -26,7 +29,9 @@ export class AddPostComponent implements OnInit {
               private toastService: ToastService){}
 
 
-
+  /**
+   * Initializes the form used to add a post
+   */
   ngOnInit(): void {
     this.postForm = this.formBuilder.group(
       {
@@ -38,10 +43,18 @@ export class AddPostComponent implements OnInit {
   }
 
 
+  /**
+   * Changes the selected file to the newly selected one
+   * @param event
+   */
   onFileChanged(event): void {
     this.selectedFile = event.target.files[0];
   }
 
+  /**
+   * Method used to save the post
+   * Gets the content from the form and sends the data to the backend
+   */
   saveP(): void
   {
     const title = this.postForm.controls.title.value;
@@ -58,6 +71,9 @@ export class AddPostComponent implements OnInit {
 
   }
 
+  /**
+   * Toggles the from fields if the user wants to add a meme and after the user added one
+   */
   toggleForm(): void
   {
     this.isToggled = !this.isToggled;

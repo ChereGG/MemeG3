@@ -5,6 +5,9 @@ from Main.models import *
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    """
+    Serializer used for the comments
+    """
     class Meta:
             model = Comment
             fields = (
@@ -44,6 +47,9 @@ class PostSerializerGet(serializers.ModelSerializer):
 
 
 class PostSerializerUpload(serializers.ModelSerializer):
+    """
+    Serializer used for uploading a meme
+    """
     class Meta:
         model = Post
         fields = (
