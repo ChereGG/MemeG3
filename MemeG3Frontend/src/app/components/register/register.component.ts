@@ -23,6 +23,9 @@ export class RegisterComponent implements OnInit {
               private userService: UserService,
   ) { }
 
+  /**
+  * Sets up the form for the input fields 
+  */
   ngOnInit(): void {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
@@ -35,6 +38,9 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  /**
+  * Validates the fields
+  */
   checkForErrors(): string[] {
     const errorLst = [];
     Object.keys(this.loginForm.controls).forEach(loginFormKey => {
@@ -49,6 +55,9 @@ export class RegisterComponent implements OnInit {
     return errorLst;
   }
 
+  /**
+  * Sends the data for the new user to the server, in order to register it
+  */
   onSubmit(): void {
     if (this.loginForm.valid) {
       this.isSubmitted = true;
@@ -105,6 +114,9 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  /**
+  * Sets the profile picture
+  */
   onFileChanged(event): void {
     this.selectedFile = event.target.files[0];
   }
