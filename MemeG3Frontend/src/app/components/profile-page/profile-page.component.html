@@ -1,0 +1,42 @@
+<app-navbar></app-navbar>
+<div class="profile-page-container">
+  <div class="card" data-state="#about" *ngIf="user!==undefined">
+    <div class="card-header" >
+      <div class="card-cover"
+           style="background-image: url('https://images.unsplash.com/photo-1549068106-b024baf5062d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=934&q=80')"></div>
+      <img class="card-avatar" src="{{this.getImagePath(this.user.image)}}" alt="avatar"/>
+      <h1 class="card-fullname">{{this.user.first_name + " " + this.user.last_name}}</h1>
+      <h2 class="card-jobtitle">Memer</h2>
+    </div>
+    <div class="card-main">
+      <div class="card-section is-active" id="about">
+        <div class="card-content">
+          <div class="card-subtitle">ABOUT</div>
+          <p class="card-desc">{{this.user.descriere}}
+          </p>
+        </div>
+      </div>
+      <div class="button-div" *ngIf="this.route.snapshot.params.userID==this.id">
+        <button class="edit edit-picture" (click)="changePicture()">Edit Picture</button>
+        <button class="edit edit-description" (click)="changeDescription()">Edit Description</button>
+      </div>
+      <div class="button-div" *ngIf="this.route.snapshot.params.userID!=this.id && this.isFollowing == 0">
+        <button class="edit follow" (click)="followUser()">Follow</button>
+      </div>
+      <div class="button-div" *ngIf="this.route.snapshot.params.userID!=this.id && this.isFollowing == 1">
+        <button class="edit follow" (click)="unfollowUser()">Unfollow</button>
+      </div>
+    </div>
+  </div>
+  <div class="profile-posts-container" *ngFor="let post of this.posts index as i">
+    <div class="post-container">
+      <app-post [post]="post">
+      </app-post>
+    </div>
+  </div>
+  <div class="add-meme-container" *ngIf="this.route.snapshot.params.userID==this.id">
+    <app-add-post (memePosted)="addedMeme($event)"></app-add-post>
+  </div>
+</div>
+
+

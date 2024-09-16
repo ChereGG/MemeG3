@@ -7,6 +7,8 @@
 # Only exists if Bazel was run
 /bazel-out
 
+Pipfile
+Pipfile.lock
 # dependencies
 /node_modules
 

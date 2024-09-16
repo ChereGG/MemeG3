@@ -1,0 +1,38 @@
+
+
+<mat-toolbar>
+  <button class="home-btn" routerLink="/feed">
+    <div style="display:flex;align-items: center;">
+    <mat-icon class="home_icon">home</mat-icon>
+    <span class="span_home_button">MemeYourLife</span>
+      </div>
+  </button>
+  <mat-form-field floatLabel="never" appearance="standard" style="border-bottom: none">
+    <input
+           matInput [formControl]="myControl" [matAutocomplete]="auto"
+           style="border-bottom:whitesmoke"
+           type="text"
+           placeholder="Search"/>
+    <mat-icon  class="search_icon">search</mat-icon>
+       <mat-autocomplete #auto="matAutocomplete">
+  <mat-option *ngIf="isLoading" class="is-loading">Loading...</mat-option>
+  <ng-container *ngIf="!isLoading">
+    <mat-option *ngFor="let user of searchedUsers" [value]="user.first_name+' '+user.last_name" (click)="navigateToUserProfile(user.id)" style="line-height: 15px">
+      <header class="user">
+        <img src="{{this.getImagePath(this.user.image)}}" alt="">
+        <div class="user-info">
+            <h2 class="user-info-name">{{this.user.first_name+" "+this.user.last_name}}</h2>
+        </div>
+    </header>
+    </mat-option>
+  </ng-container>
+  </mat-autocomplete>
+    </mat-form-field>
+  <div>
+    <button class="profile_btn" mat-icon-button (click)="navigateToUserProfile(this.id)" >
+      <mat-icon class="account_icon">account_circle</mat-icon>
+    </button>
+    <label class="logout_button" (click)="logout()">logout</label>
+  </div>
+</mat-toolbar>
+
